@@ -25,6 +25,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'devise', '~> 4.2'
 
+gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
+
+gem 'bootstrap-sass-extras', '~> 0.0.7'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
