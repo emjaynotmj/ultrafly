@@ -11,20 +11,20 @@
         <span class="icon-bar"></span>
       </button>
       <!-- <a class="navbar-brand" href="#"><b>UltraFly</b></a> -->
-      <%= link_to "UltraFly", new_user_session_path, class: "navbar-brand" %>
+      <%= link_to "UltraFly", root_path, class: "navbar-brand" %>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "Home", new_user_session_path %></li>
+        <li><%= link_to "Home", root_path %></li>
         <% unless current_user %>
         <li><%= link_to "Sign Up", new_user_registration_path %></li>
         <li><%= link_to "Sign In", new_user_session_path %></li>
         <% end %>
-        <li><%= link_to "About Us", new_user_session_path %></li>
-        <li><%= link_to "Contact Us", new_user_session_path %></li>
+        <li><%= link_to "About Us", pages_about_path %></li>
+        <li><%= link_to "Contact Us", pages_contact_path %></li>
         <% if current_user %>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account<span class="caret"></span></a>

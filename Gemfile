@@ -31,6 +31,8 @@ gem 'devise', '~> 4.2'
 
 gem 'simple_form', '~> 3.3', '>= 3.3.1'
 
+gem 'launchy', '~> 2.4', '>= 2.4.3'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -45,6 +47,8 @@ group :development, :test do
   gem 'byebug'
 
   gem 'rspec-rails', '~> 3.5', '>= 3.5.1'
+
+  gem 'capybara', '~> 2.8', '>= 2.8.1'
 
   gem 'factory_girl_rails', '~> 4.7'
 end
