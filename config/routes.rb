@@ -4,7 +4,8 @@ Rails.application.routes.draw do
 
   get 'pages/contact'
   get 'pages/about'
-  devise_for :users
+
+  devise_for :users, :controllers => { registrations: "registrations" }
 
 
   # The priority is based upon order of creation: first created -> highest priority.
