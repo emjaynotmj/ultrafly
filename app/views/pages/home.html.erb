@@ -6,28 +6,28 @@
           <h1>UltraFly</h1>
           <p>Flight reservation just got better!</p>
 
-              <%= form_tag( method: 'post', remote: true) do %>
+              <%= form_tag(root_path, method: 'post', remote: true) do %>
 
                 <div class="form-group">
                   <select class="form-control  transparent-input" id="flightFrom" name="from" placeholder="Where are you?">
                     <option>Departure City</option>
-                    <option>Departure City</option>
+                    <option>Abuja</option>
                     <option>Departure City</option>
                     <option>Departure City</option>
                   </select>
                 </div>
 
                 <div class="form-group">
-                  <select class="form-control  transparent-input" id="flightTo" name="to" placeholder="Where are you?">
+                  <select class="form-control  transparent-input" id="flightTo" name="to" placeholder="Where are you going to?">
                     <option>Destination City</option>
-                    <option>Destination City</option>
+                    <option>Lagos</option>
                     <option>Destination City</option>
                     <option>Destination City</option>
                   </select>
                 </div>
 
                 <div class="form-group">
-                  <select class="form-control  transparent-input" id="flightTo" name="to" placeholder="Where are you?">
+                  <select class="form-control  transparent-input" id="passenger" name="to" placeholder="Where are you?">
                     <option>No of Passengers</option>
                     <option>2</option>
                     <option>4</option>
@@ -51,4 +51,15 @@
     </div>
 
   </div>
+</section>
+
+
+
+
+<section id="home" data-speed="4" data-type="background">
+    <div class="container">
+      <div class="page-header">
+        <h1 id="page-title">Flights</h1>
+      </div>
+    </div>
 </section>
