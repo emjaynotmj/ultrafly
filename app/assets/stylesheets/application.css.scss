@@ -18,4 +18,32 @@
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import "yeti"
+// @import "yeti";
+
+
+#main-view {
+    background: url('http://www.fluentu.com/english/blog/wp-content/uploads/sites/4/2014/05/English-vocabulary-words-airport2.jpg') 0 0 fixed;
+    height: auto;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    padding: 100px 0;
+}
+
+#home {
+    height: auto;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    padding: 50px 0;
+}
+#footer {
+    background-color: #000;
+    height: auto;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    bottom: 0px;
+    padding: 50px 0;
+    color: #fff;
+}
