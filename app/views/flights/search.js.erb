@@ -1,0 +1,6 @@
+$(document).ready(function(){
+$('div#all-flights').empty().html("<%= j render 'flights/search_result' %>");
+$('html, body').animate({
+        scrollTop: $("#result-view").offset().top
+    }, 2000);
+});

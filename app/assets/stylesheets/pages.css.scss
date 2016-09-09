@@ -1,0 +1,37 @@
+#main-view {
+  background: url('http://www.fluentu.com/english/blog/wp-content/uploads/sites/4/2014/05/English-vocabulary-words-airport2.jpg') 0 0 fixed;
+  height: auto;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  padding: 100px 0;
+}
+
+#result-view {
+  height: auto;
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  padding: 50px 0;
+}
+
+.home-result{
+  position: relative;
+  padding-bottom: 40px;
+  max-width: 100%;
+  margin-bottom: none;
+  background:#fff;
+}
+
+.flight-list{
+  border-bottom: solid 5px #2E9AFE;
+  border-radius: 10px;
+}
+
+.search-airline{
+  margin-top: 20px;
+}
+
+.search-price{
+  margin-top: 40px;
+}

@@ -1,65 +1,19 @@
 <section id="main-view" data-speed="6" data-type="background">
   <div class="container">
-
     <div class="row">
-        <div class="col-lg-4 col-md-6 well pull-right">
-          <h1>UltraFly</h1>
-          <p>Flight reservation just got better!</p>
-
-              <%= form_tag(root_path, method: 'post', remote: true) do %>
-
-                <div class="form-group">
-                  <select class="form-control  transparent-input" id="flightFrom" name="from" placeholder="Where are you?">
-                    <option>Departure City</option>
-                    <option>Abuja</option>
-                    <option>Departure City</option>
-                    <option>Departure City</option>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <select class="form-control  transparent-input" id="flightTo" name="to" placeholder="Where are you going to?">
-                    <option>Destination City</option>
-                    <option>Lagos</option>
-                    <option>Destination City</option>
-                    <option>Destination City</option>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <select class="form-control  transparent-input" id="passenger" name="to" placeholder="Where are you?">
-                    <option>No of Passengers</option>
-                    <option>2</option>
-                    <option>4</option>
-                    <option>6</option>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <div class="input-group">
-                    <input id="date-picker" type="date" name="date" class="date-picker form-control transparent-input" />
-                    <label for="date-picker" class="input-group-addon btn">
-                      <span class="glyphicon glyphicon-calendar"></span>
-                    </label>
-                  </div>
-                </div>
-
-                <button type="submit" class="btn btn-default btn-lg btn-block" id="search-submit">Search Flights</button>
-              <% end %>
-
-        </div>
+      <div class="col-lg-4 col-md-6 well pull-right">
+        <h1>UltraFly</h1>
+        <p>Online flight reservation just got better!</p>
+        <br>
+        <%= render 'pages/search_form' %>
+      </div>
     </div>
-
   </div>
 </section>
 
-
-
-
-<section id="home" data-speed="4" data-type="background">
-    <div class="container">
-      <div class="page-header">
-        <h1 id="page-title">Flights</h1>
-      </div>
+<section id="result-view" data-speed="4" data-type="background">
+  <div class="container">
+    <div class="row" id="all-flights">
     </div>
+  </div>
 </section>
