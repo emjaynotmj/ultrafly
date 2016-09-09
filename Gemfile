@@ -31,19 +31,15 @@ gem 'devise', '~> 4.2'
 
 gem 'simple_form', '~> 3.3', '>= 3.3.1'
 
-gem 'launchy', '~> 2.4', '>= 2.4.3'
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use Unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem "pry"
+
+  gem 'pry-rails'
+
+  gem 'pry-nav'
+
   gem 'byebug'
 
   gem 'rspec-rails', '~> 3.5', '>= 3.5.1'
@@ -51,6 +47,14 @@ group :development, :test do
   gem 'capybara', '~> 2.8', '>= 2.8.1'
 
   gem 'factory_girl_rails', '~> 4.7'
+
+  gem 'faker'
+
+  gem 'database_cleaner', '~> 1.5', '>= 1.5.3'
+
+  gem 'phantomjs', '~> 2.1', '>= 2.1.1.0', :require => 'phantomjs/poltergeist'
+
+  gem 'poltergeist', '~> 1.10'
 end
 
 group :development do
@@ -60,4 +64,3 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
-

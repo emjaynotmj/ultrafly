@@ -1,0 +1,28 @@
+<%= form_tag({controller: 'flights', action: 'search'}, method: 'post', remote: true) do %>
+  <div class="form-group">
+    <%= label_tag :from, "Departure Airport?" %>
+    <%= select_tag :from, options_for_select(@airports.collect { |airport| [airport.name, airport.id] }), class: "form-control  transparent-input" %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :to, "Arrival Airport?" %>
+    <%= select_tag :to, options_for_select(@airports.collect { |airport| [airport.name, airport.id] }), class: "form-control  transparent-input" %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :passengers, "How many Passengers?" %>
+    <%= select_tag :passengers, options_for_select((1..10)), class: "form-control  transparent-input" %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :date, "When do you want to leave?" %>
+    <div class="input-group">
+      <input id="date-picker" type="date" name="date" class="date-picker form-control transparent-input" />
+      <label for="date-picker" class="input-group-addon btn">
+        <span class="glyphicon glyphicon-calendar"></span>
+      </label>
+    </div>
+  </div>
+
+  <%= submit_tag 'Search Flights', class: 'btn btn-default btn-lg btn-block', id: 'search-submit' %>
+<% end %>

@@ -1,1 +1,19 @@
-home page
+<section id="main-view" data-speed="6" data-type="background">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-md-6 well pull-right">
+        <h1>UltraFly</h1>
+        <p>Online flight reservation just got better!</p>
+        <br>
+        <%= render 'pages/search_form' %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="result-view" data-speed="4" data-type="background">
+  <div class="container">
+    <div class="row" id="all-flights">
+    </div>
+  </div>
+</section>

@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Ultrafly</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <title>Ultrafly</title>
+    <%= stylesheet_link_tag 'application', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css', media: 'all', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  </head>
+  <body>
 
-<div class="container">
-<%= render 'layouts/nav' %>
-<%= bootstrap_flash %>
-<%= yield %>
-</div>
-</body>
+    <%= render 'layouts/nav' %>
+
+    <div class="container">
+      <%= bootstrap_flash %>
+    </div>
+
+    <%= yield %>
+
+  </body>
 </html>

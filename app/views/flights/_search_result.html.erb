@@ -1,0 +1,48 @@
+<div class="home-result">
+  <div class="panel-body">
+    <% unless @flights.empty? %>
+      <% first_flight = @flights.first %>
+      <h2 class="text-info">Search results for flights from
+        <%= first_flight.departure_airport.state %> to <%= first_flight.arrival_airport.state %>
+      </h2>
+      <hr>
+      <% @flights.each do |flight| %>
+        <li class="list-group-item flight-list">
+          <div class="row">
+            <div class="col-md-2 text-center vertical-align search-airline">
+              <div class="radio-danger">
+                <%= radio_button_tag(:flight_id, flight.id) %>
+              </div>
+              <%= label_tag "flights_id_#{flight.id}", flight.airline_name %>
+            </div>
+
+            <div class="col-md-3">
+              <i class="fa fa-plane"></i>
+              <h5><%= label_tag "#{flight.departure_date.strftime('%-l:%M%P')}" %></h5>
+              <p><%= flight.departure_date.strftime("%d - %m - %Y")%></p>
+              <%= flight.departure_airport.name %>
+            </div>
+
+            <div class="col-md-3">
+              <i class="fa fa-plane fa-flip-vertical"></i>
+              <h5><%= flight.arrival_date.strftime("%-l:%M%P") %></h5>
+              <p><%= flight.arrival_date.strftime("%d - %m - %Y")%></p>
+              <%= flight.arrival_airport.name %>
+            </div>
+
+            <div class="col-md-3 search-price">
+              <span><%= (number_to_currency flight.price, delimiter: '.') %></span><span>/person</span>
+              <p><%= link_to 'Book Flight', root_path %></p>
+            </div>
+          </div>
+        </li>
+        <hr>
+      <% end %>
+    <% else %>
+      <h4 class="text-info">No Flights found for the specified locations</h4>
+    <% end %>
+    <br>
+    <%= link_to 'All Flights', root_path, class: "btn btn-primary pull-right"%>
+    <%= link_to 'close', :back, class: "btn btn-danger pull-left"%>
+  </div>
+</div>

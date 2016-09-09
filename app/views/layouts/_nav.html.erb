@@ -1,6 +1,6 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-inverse navbar-fixed-top">
 
-  <div class="container-fluid">
+  <div class="container container-fluid">
 
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -10,7 +10,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <!-- <a class="navbar-brand" href="#"><b>UltraFly</b></a> -->
+
       <%= link_to "UltraFly", root_path, class: "navbar-brand" %>
     </div>
 
@@ -24,7 +24,7 @@
         <li><%= link_to "Sign In", new_user_session_path %></li>
         <% end %>
         <li><%= link_to "About Us", pages_about_path %></li>
-        <li><%= link_to "Contact Us", pages_contact_path %></li>
+        <li><%= link_to "Contact Us", contact_us_path %></li>
         <% if current_user %>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Account<span class="caret"></span></a>
