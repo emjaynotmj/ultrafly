@@ -39,8 +39,6 @@ gem 'puma', '~> 3.6'
 
 gem 'rails_12factor'
 
-gem 'sqlite3', '~> 1.3', '>= 1.3.11'
-
 gem 'pg', '~> 0.18.4', group: :production
 
 gem 'letter_opener', '~> 1.4', '>= 1.4.1'
@@ -68,6 +66,8 @@ group :development, :test do
   gem 'poltergeist', '~> 1.10'
 
   gem 'launchy', '~> 2.4', '>= 2.4.3'
+
+  gem 'sqlite3', '~> 1.3', '>= 1.3.11'
 end
 
 group :development do
