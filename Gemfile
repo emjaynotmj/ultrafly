@@ -62,8 +62,6 @@ group :development, :test do
   gem 'launchy', '~> 2.4', '>= 2.4.3'
 
   gem 'letter_opener', '~> 1.4', '>= 1.4.1'
-
-  gem 'sqlite3', '~> 1.3', '>= 1.3.11'
 end
 
 group :development do
@@ -72,6 +70,8 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring', '~> 1.7', '>= 1.7.2'
+
+  gem 'sqlite3', '~> 1.3', '>= 1.3.11'
 end
 
 group :production do
