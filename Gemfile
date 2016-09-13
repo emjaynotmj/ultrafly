@@ -37,14 +37,22 @@ gem 'cocoon', '~> 1.2', '>= 1.2.9'
 
 gem 'puma', '~> 3.6'
 
+gem 'rails_12factor'
+
+gem 'sqlite3', '~> 1.3', '>= 1.3.11'
+
+gem 'pg', '~> 0.18.4', group: :production
+
+gem 'letter_opener', '~> 1.4', '>= 1.4.1'
+
+gem 'pry', '~> 0.10.4'
+
+gem 'pry-rails', '~> 0.3.4'
+
+gem 'pry-nav', '~> 0.2.4'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'pry', '~> 0.10.4'
-
-  gem 'pry-rails', '~> 0.3.4'
-
-  gem 'pry-nav', '~> 0.2.4'
-
   gem 'byebug', '~> 9.0', '>= 9.0.5'
 
   gem 'rspec-rails', '~> 3.5', '>= 3.5.1'
@@ -60,10 +68,6 @@ group :development, :test do
   gem 'poltergeist', '~> 1.10'
 
   gem 'launchy', '~> 2.4', '>= 2.4.3'
-
-  gem 'letter_opener', '~> 1.4', '>= 1.4.1'
-
-  gem 'sqlite3', '~> 1.3', '>= 1.3.11'
 end
 
 group :development do
@@ -72,10 +76,4 @@ group :development do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring', '~> 1.7', '>= 1.7.2'
-end
-
-group :production do
-  gem 'rails_12factor', '~> 0.0.3'
-
-  gem 'pg', '~> 0.18.4'
 end
