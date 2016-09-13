@@ -10,6 +10,7 @@ class BookingsController < ApplicationController
     @booking = Booking.new(booking_params)
     respond_to do |format|
       if @booking.save
+        mail_user(@booking)
         format.html { redirect_to booking_path(@booking.id), notice: 'Flight Booked Successfuly.' }
       else
         format.html { redirect_to :back,  notice: 'You must have at least one passenger'}
@@ -24,5 +25,23 @@ class BookingsController < ApplicationController
 
   def show
     @booking = Booking.find(params[:id])
+  end
+
+  def mail_user(booking)
+    user = Passenger.where(booking_id: booking.id)
+    if current_user
+      send_mail(current_user.email, booking)
+      user.each do |x|
+        send_mail(x.email, booking) if x.email != current_user.email
+      end
+    else
+      user.each do |x|
+        send_mail(x.email, booking)
+      end
+    end
+  end
+
+  def send_mail(user, booking)
+    UltraMailer.booking_confirmed(user, booking, current_user).deliver_now!
   end
 end

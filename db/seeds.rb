@@ -39,7 +39,7 @@ end
   flight.arrival_airport_id = Airport.order('RANDOM()').where.not(id: flight.departure_airport_id).first.id
   flight.departure_date = date
   flight.arrival_date = date + forward_rand.hour
-  flight.price = Faker::Commerce.price * 10000
+  flight.price = Faker::Commerce.price * 1000
   flight.available_seats = Random.rand(10..30)
   flight.save!
 }
