@@ -27,9 +27,15 @@ gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
 
 gem 'bootstrap-sass-extras', '~> 0.0.7'
 
+gem 'font-awesome-sass', '~> 4.6', '>= 4.6.2'
+
 gem 'devise', '~> 4.2'
 
 gem 'simple_form', '~> 3.3', '>= 3.3.1'
+
+gem 'faker'
+
+gem 'cocoon', '~> 1.2', '>= 1.2.9'
 
 
 group :development, :test do
@@ -48,13 +54,13 @@ group :development, :test do
 
   gem 'factory_girl_rails', '~> 4.7'
 
-  gem 'faker'
-
   gem 'database_cleaner', '~> 1.5', '>= 1.5.3'
 
   gem 'phantomjs', '~> 2.1', '>= 2.1.1.0', :require => 'phantomjs/poltergeist'
 
   gem 'poltergeist', '~> 1.10'
+
+  gem 'launchy'
 end
 
 group :development do

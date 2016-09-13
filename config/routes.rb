@@ -8,7 +8,11 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { registrations: "registrations" }
 
   post "flights/search" => "flights#search"
-
+  get 'flights' => 'flights#index'
+  resources :bookings
+  # post 'bookings/new' => 'bookings#new', as: :new_booking
+  # post 'bookings' => 'bookings#create'
+  # get 'bookings/:id' => 'bookings#show', as: :booking
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

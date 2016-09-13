@@ -1,0 +1,40 @@
+<%= form_tag({controller: 'bookings', action: 'new'}, method: 'get') do %>
+<input name="no_of_passengers" type="hidden" value= <%= params[:passengers] %> />
+  <% @flights.each do |flight| %>
+    <li class="list-group-item flight-list">
+      <div class="container center">
+        <div class="row">
+
+          <div class="col-md-2 text-center vertical-align search-airline">
+            <div class="radio-danger">
+              <%= radio_button_tag(:flight_id, flight.id) %>
+            </div>
+            <%= label_tag "flights_id_#{flight.id}", flight.airline_name %>
+          </div>
+
+          <div class="col-md-3">
+            <i class="fa fa-plane"></i>
+            <h5><%= flight.departure_date.try(:strftime, '%-l:%M%P') %></h5>
+            <p><%= flight.departure_date.try(:strftime, "%d - %m - %Y") %></p>
+            <%= flight.departure_airport.name %>
+          </div>
+
+          <div class="col-md-3">
+            <i class="fa fa-plane fa-flip-vertical"></i>
+            <h5><%= flight.arrival_date.try(:strftime, '%-l:%M%P') %></h5>
+            <p><%= flight.arrival_date.try(:strftime, "%d - %m - %Y") %></p>
+            <%= flight.arrival_airport.name %>
+          </div>
+
+          <div class="col-md-3 search-price">
+            <span><%= (number_to_currency flight.price, locale: :ng) %></span><span>/person</span>
+            <br>
+            <span><%= submit_tag 'Select Flight', class: "btn btn-primary" %></span>
+          </div>
+
+        </div>
+      </div>
+    </li>
+    <hr>
+  <% end %>
+<% end %>

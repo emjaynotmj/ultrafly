@@ -19,3 +19,6 @@
 # Ignore Mac OX System files
 .DS_Store
 .keep
+
+# Ignore assets folder
+/public/assets
