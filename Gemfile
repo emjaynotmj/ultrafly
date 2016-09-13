@@ -37,6 +37,8 @@ gem 'cocoon', '~> 1.2', '>= 1.2.9'
 
 gem 'puma', '~> 3.6'
 
+gem 'pg', '~> 0.18.4'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry', '~> 0.10.4'
@@ -71,11 +73,9 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring', '~> 1.7', '>= 1.7.2'
 
-  gem 'sqlite3', '~> 1.3', '>= 1.3.11'
+  # gem 'sqlite3', '~> 1.3', '>= 1.3.11'
 end
 
 group :production do
   gem 'rails_12factor', '~> 0.0.3'
-
-  gem 'pg', '~> 0.18.4'
 end
