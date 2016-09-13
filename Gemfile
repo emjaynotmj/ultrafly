@@ -61,6 +61,8 @@ group :development, :test do
   gem 'poltergeist', '~> 1.10'
 
   gem 'launchy'
+
+  gem 'letter_opener', '~> 1.4', '>= 1.4.1'
 end
 
 group :development do
