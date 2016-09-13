@@ -26,5 +26,5 @@ ng:
           unit: '₦'
           delimiter: ','
           separator: '.'
-          precision: 2
-          format: '%u %n'
+          precision: 0
+          format: '%u%n'

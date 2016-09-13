@@ -33,12 +33,13 @@ end
   forward_rand = Random.rand(0..30)
   date = Faker::Time.forward(12, :morning)
   flight = Flight.new
+  flight.flight_code = "UF" + Faker::Number.between(100, 500).to_s
   flight.airline_name = airlines.sample
   flight.departure_airport_id = Airport.order('RANDOM()').first.id
   flight.arrival_airport_id = Airport.order('RANDOM()').where.not(id: flight.departure_airport_id).first.id
   flight.departure_date = date
   flight.arrival_date = date + forward_rand.hour
-  flight.price = Faker::Commerce.price
+  flight.price = Faker::Commerce.price * 10000
   flight.available_seats = Random.rand(10..30)
   flight.save!
 }

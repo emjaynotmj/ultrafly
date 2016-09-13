@@ -41,7 +41,7 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = false
   config.render_views
-  config.before(:all) do
+  config.after(:all) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with :truncation
   end

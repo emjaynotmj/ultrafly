@@ -1,0 +1,41 @@
+<div class="pages">
+  <div class = "container">
+    <div class ="row">
+      <div class =" col-md-12">
+
+        <% @booking.id %>
+        <% @flight = Flight.find(@booking.flight_id) %>
+        <% @passengers = Passenger.where(booking_id: @booking.id) %>
+        <h2 align= "center" class = "text-info">Your Booking For Flight "<%= @flight.airline_name %> #000<%= @flight.id %>" from <%= @flight.departure_airport.state %> to <%= @flight.arrival_airport.state %> was successful.</h2>
+        <hr>
+
+        <div>
+          <div class = "col-md-6">
+            <h3 class = "text-info" ><strong>Flight Details</strong></h3>
+            <hr>
+            <h4><strong>Airline:</strong> <%= @flight.airline_name %></h4>
+            <h4><strong>From:</strong> <%= @flight.departure_airport.name %></h4>
+            <h4><strong>To:</strong> <%= @flight.arrival_airport.name %></h4>
+            <h4><strong><h4><strong>Take off date:</strong>
+            <%= @flight.departure_date.strftime('%d - %m - %Y') %>, <%= @flight.departure_date.strftime('%-l:%M%P') %></h4>
+            <h4><strong>Landing Date: </strong></strong>
+            <%= @flight.arrival_date.strftime('%d - %m - %Y') %>, <%= @flight.arrival_date.strftime('%-l:%M%P') %></h4>
+            <h4><strong>No of seats reserved:</strong> <%= @passengers.count %></h4>
+            <h4><strong>Total Price: </strong><%= number_to_currency((@flight.price.to_i * @passengers.count), locale: :ng) %>  </h4>
+          </div>
+
+          <div class = "col-md-6">
+            <h3 class = "text-info"> <strong>Passengers Details</strong></h3>
+            <hr>
+            <% @passengers.each do |passenger| %>
+            <p>Name: <%= passenger.name %> </p>
+            <p>Email: <%= passenger.email %></p>
+            <hr>
+            <% end %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<div class = "pages">
+  <div class = "container">
+    <div class = "row">
+
+      <div class = "col-md-5">
+        <div class="panel panel-primary ">
+          <div class="panel-heading">
+            <h3 class="panel-title">Flight Information</h3>
+            </div>
+            <div class="panel-body">
+            <p>Flight Code: <%= @selected_flight.flight_code %></p>
+            <p>Airline: <%= @selected_flight.airline_name %></p>
+            <p>Departure: <%= @selected_flight.departure_airport.name %></p>
+            <p>Destination: <%= @selected_flight.arrival_airport.name %></p>
+            <p>Take Off Date: <%= @selected_flight.departure_date.try(:strftime, "%d - %m - %Y") %></p>
+            <p>Take Off Time: <%= @selected_flight.departure_date.try(:strftime, '%l:%M%P') %></p>
+            <p>Cost/Passenger: <%= number_to_currency @selected_flight.price, locale: :ng %></p>
+            <p>Passenger(s): <%= params[:no_of_passengers] %>
+            <p>Total Cost: <%= number_to_currency((@selected_flight.price * params[:no_of_passengers].to_i), locale: :ng) %>
+            <h3 class="pull-right"><%= params["price"] %> </h3>
+            </p>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class = "col-md-7">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Passengers Details</h3>
+          </div>
+          <div class="panel-body">
+            <%= form_for(@booking) do |f| %>
+              <%= f.fields_for :passengers do |passenger| %>
+                <%= render 'passenger_fields', :f => passenger %>
+              <% end %>
+              <br>
+
+              <input name="booking[flight_id]" type="hidden" value= <%= params[:flight_id] %> />
+
+              <div class="links panel-footer">
+                <%= link_to_add_association 'Add Passenger', f, :passengers, class: 'btn btn-primary' %>
+                 <%= f.submit 'Book Flight', class: "btn btn-primary pull-right" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
