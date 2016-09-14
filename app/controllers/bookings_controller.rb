@@ -44,4 +44,13 @@ class BookingsController < ApplicationController
   def send_mail(user, booking)
     UltraMailer.booking_confirmed(user, booking, current_user).deliver_now!
   end
+
+  def past_bookings
+    unless current_user
+      redirect_to root_path
+    else
+      user = current_user.id if current_user
+      @bookings = Booking.where(user_id: user)
+    end
+  end
 end
