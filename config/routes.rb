@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   post "flights/search" => "flights#search"
   get 'flights' => 'flights#index'
   resources :bookings
+  get 'past_bookings' => 'bookings#past_bookings'
   # post 'bookings/new' => 'bookings#new', as: :new_booking
   # post 'bookings' => 'bookings#create'
   # get 'bookings/:id' => 'bookings#show', as: :booking

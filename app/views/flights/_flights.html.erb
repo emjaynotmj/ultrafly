@@ -7,7 +7,7 @@
 
           <div class="col-md-2 text-center vertical-align search-airline">
             <div class="radio-danger">
-              <%= radio_button_tag(:flight_id, flight.id) %>
+              <%= radio_button_tag(:flight_id, flight.id, checked=false, required: true) %>
             </div>
             <%= label_tag "flights_id_#{flight.id}", flight.airline_name %>
           </div>

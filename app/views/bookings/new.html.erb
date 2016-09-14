@@ -37,6 +37,7 @@
               <br>
 
               <input name="booking[flight_id]" type="hidden" value= <%= params[:flight_id] %> />
+              <input name="booking[user_id]" type="hidden" value= <%= current_user.id if current_user %> />
 
               <div class="links panel-footer">
                 <%= link_to_add_association 'Add Passenger', f, :passengers, class: 'btn btn-primary' %>
