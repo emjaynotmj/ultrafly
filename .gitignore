@@ -24,4 +24,4 @@
 /public/assets
 
 # Ignore Gemfile.lock
-.lock
+*Gemfile.lock
