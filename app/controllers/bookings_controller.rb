@@ -42,7 +42,7 @@ class BookingsController < ApplicationController
   end
 
   def send_mail(user, booking)
-    UltraMailer.booking_confirmed(user, booking, current_user).deliver_now!
+    UltraMailer.booking_confirmed(user, booking).deliver_now!
   end
 
   def past_bookings
