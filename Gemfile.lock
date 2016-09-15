@@ -10,6 +10,8 @@ GEM
     actionpack (4.2.6)
       actionview (= 4.2.6)
       activesupport (= 4.2.6)
+      builder (~> 3.1)
+      erubis (~> 2.7.0)
       rack (~> 1.6)
       rack-test (~> 0.6.2)
       rails-dom-testing (~> 1.0, >= 1.0.5)
@@ -263,7 +265,7 @@ DEPENDENCIES
   pry-rails (~> 0.3.4)
   puma (~> 3.6)
   rails (= 4.2.6)
-  rails_12factor
+  rails_12factor (~> 0.0.3)
   rspec-rails (~> 3.5, >= 3.5.1)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)

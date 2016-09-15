@@ -1,6 +1,6 @@
 ## UltraFly
 
-A flight booking application that allows users to make booking reservations. It can be viewed online [here](https://ultrafly.herokuapp.com)
+A flight booking application that allows users to book for available flights. It can be viewed online [here](https://ultrafly.herokuapp.com)
 ## Getting Started
 1. Clone the repository:
     ````
