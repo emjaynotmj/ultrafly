@@ -22,3 +22,6 @@
 
 # Ignore assets folder
 /public/assets
+
+# Ignore Gemfile.lock
+*Gemfile.lock

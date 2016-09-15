@@ -37,7 +37,7 @@ gem 'cocoon', '~> 1.2', '>= 1.2.9'
 
 gem 'puma', '~> 3.6'
 
-gem 'rails_12factor'
+gem 'rails_12factor', '~> 0.0.3'
 
 gem 'letter_opener', '~> 1.4', '>= 1.4.1'
 

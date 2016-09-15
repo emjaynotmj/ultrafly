@@ -1,6 +1,6 @@
-## UltraFly
+## UltraFly<a href="https://codeclimate.com/github/andela-ajamiu/ultrafly/coverage"><img src="https://codeclimate.com/github/andela-ajamiu/ultrafly/badges/coverage.svg" /></a><a href="https://codeclimate.com/github/andela-ajamiu/ultrafly"><img src="https://codeclimate.com/github/andela-ajamiu/ultrafly/badges/issue_count.svg" /></a>
 
-A flight booking application that allows users to make booking reservations. It can be viewed online [here](https://ultrafly.herokuapp.com)
+A flight booking application that allows users to book for available flights. It can be viewed online [here](https://ultrafly.herokuapp.com)
 ## Getting Started
 1. Clone the repository:
     ````
