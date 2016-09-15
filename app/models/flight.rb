@@ -6,9 +6,12 @@ class Flight < ActiveRecord::Base
 
   accepts_nested_attributes_for :bookings
 
-  def self.search(departs, arrives, date, passengers)
-    sql_query = "departure_date >= ? and available_seats > ?"
+  def self.search(departure_airport, arrival_airport, date, passengers)
+    sql_query = 'departure_date >= ? and available_seats > ?'
     flights = where(sql_query, date, passengers)
-    flights.uniq(&:date).select { |flight| flight.departure_airport_id == departs && flight.arrival_airport_id == arrives }
+    flights.uniq(&:date).select do |flight|
+      flight.departure_airport_id == departure_airport &&
+      flight.arrival_airport_id == arrival_airport
+    end
   end
 end

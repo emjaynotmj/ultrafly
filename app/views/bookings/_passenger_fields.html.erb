@@ -1,10 +1,10 @@
 <div class="nested-fields form-inline">
   <div class="form-group">
-    <%= f.text_field :name, id: 'passenger_name', class: 'form-control', placeholder: 'Passenger Name' %>
+    <%= f.text_field :name, { id: 'passenger_name', class: "validate form-control", type: "text", placeholder: 'Passenger Name', required: true, pattern: "^[a-zA-Z]+[\-'\s]?[a-zA-Z ]+$" } %>
   </div>
-  <span>-</span>
+  <span>~</span>
   <div class="form-group">
-    <%= f.text_field :email, id: 'passenger_email', class: 'form-control', placeholder: 'Passenger Email' %>
+    <%= f.text_field :email, { id: 'passenger_email', class: "validate form-control", type: "email", placeholder: 'Passenger Email', required: true, pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" } %>
   </div>
   <div class="links pull-right">
     <%= link_to_remove_association 'Delete', f, class: 'btn btn-danger' %>

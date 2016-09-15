@@ -2,8 +2,8 @@
   <div class="panel-body" align ="center">
     <% unless @flights.empty? %>
       <% first_flight = @flights.first %>
-      <h2 class="text-info">Search results for flights from
-        <%= first_flight.departure_airport.state %> to <%= first_flight.arrival_airport.state %>
+      <h2 class="text-info"><small>Search results for flights from</small>
+        <%= first_flight.departure_airport.state %> <small>to</small> <%= first_flight.arrival_airport.state %>
       </h2>
       <hr>
       <%= render 'flights/flights' %>
@@ -11,7 +11,7 @@
       <h4 class="text-info">No Flights found for the specified locations</h4>
     <% end %>
     <br>
-    <%= link_to 'All Flights', root_path, class: "btn btn-primary pull-right"%>
+    <%= link_to 'All Flights', flights_path, class: "btn btn-primary pull-right"%>
     <%= link_to 'close', :back, class: "btn btn-danger pull-left"%>
   </div>
 </div>

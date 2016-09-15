@@ -1,10 +1,8 @@
 source 'https://rubygems.org'
 
-
+ruby '2.2.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -15,9 +13,9 @@ gem 'coffee-rails', '~> 4.1.0'
 # gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 4.2', '>= 4.2.1'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+gem 'turbolinks', '~> 5.0', '>= 5.0.1'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
@@ -33,20 +31,27 @@ gem 'devise', '~> 4.2'
 
 gem 'simple_form', '~> 3.3', '>= 3.3.1'
 
-gem 'faker'
+gem 'faker', '~> 1.6', '>= 1.6.6'
 
 gem 'cocoon', '~> 1.2', '>= 1.2.9'
 
+gem 'puma', '~> 3.6'
+
+gem 'rails_12factor'
+
+gem 'letter_opener', '~> 1.4', '>= 1.4.1'
+
+gem 'pry', '~> 0.10.4'
+
+gem 'pry-rails', '~> 0.3.4'
+
+gem 'pry-nav', '~> 0.2.4'
+
+gem 'toastr-rails', '~> 1.0', '>= 1.0.3'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem "pry"
-
-  gem 'pry-rails'
-
-  gem 'pry-nav'
-
-  gem 'byebug'
+  gem 'byebug', '~> 9.0', '>= 9.0.5'
 
   gem 'rspec-rails', '~> 3.5', '>= 3.5.1'
 
@@ -60,7 +65,9 @@ group :development, :test do
 
   gem 'poltergeist', '~> 1.10'
 
-  gem 'launchy'
+  gem 'launchy', '~> 2.4', '>= 2.4.3'
+
+  gem 'sqlite3', '~> 1.3', '>= 1.3.11'
 end
 
 group :development do
@@ -68,5 +75,9 @@ group :development do
   gem 'web-console', '~> 2.0'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
+  gem 'spring', '~> 1.7', '>= 1.7.2'
+end
+
+group :production do
+  gem 'pg', '~> 0.18.4'
 end

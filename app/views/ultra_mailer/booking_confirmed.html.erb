@@ -1,0 +1,163 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>UlfraFly mail</title>
+    <style type="text/css">
+      .clearfix:after {
+          content: "";
+          display: table;
+          clear: both;
+      }
+
+      body {
+          position: relative;
+          width: 21cm;
+          height: 29.7cm;
+          margin: 0 auto;
+          color: #001028;
+          background: #FFFFFF;
+          font-family: Arial, sans-serif;
+          font-size: 12px;
+          font-family: Arial;
+      }
+
+      header {
+          padding: 10px 0;
+          margin-bottom: 30px;
+      }
+
+      #logo {
+          text-align: center;
+          margin-bottom: 10px;
+      }
+
+      h1 {
+          border-top: 1px solid #5D6975;
+          border-bottom: 1px solid #5D6975;
+          color: #5D6975;
+          font-size: 2.4em;
+          line-height: 1.4em;
+          font-weight: normal;
+          text-align: center;
+          margin: 0 0 20px 0;
+          background: url(dimension.png);
+      }
+
+      table {
+          width: 100%;
+          border-collapse: collapse;
+          border-spacing: 0;
+          margin-bottom: 20px;
+      }
+
+      table tr:nth-child(2n-1) td {
+          background: #F5F5F5;
+      }
+
+      table th,
+      table td {
+          text-align: center;
+      }
+
+      table th {
+          padding: 5px 20px;
+          color: #5D6975;
+          border-bottom: 1px solid #C1CED9;
+          white-space: nowrap;
+          font-weight: normal;
+      }
+
+      table .service,
+      table .desc {
+          text-align: left;
+      }
+
+      table td {
+          padding: 20px;
+          text-align: right;
+      }
+
+      table td.service,
+      table td.desc {
+          vertical-align: top;
+      }
+
+      table td.total {
+          font-size: 1.2em;
+      }
+
+      table td.grand {
+          border-top: 1px solid #5D6975;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="clearfix">
+      <div id="logo">
+        <% @flight = Flight.find(@booking.flight_id) %>
+        <% @passengers = Passenger.where(booking_id: @booking.id) %>
+        <h2 align= "center" class = "text-info"><small>Your Booking For Flight</small> "<%= @flight.airline_name %> #<%= @flight.flight_code %>" <small>from</small> <%= @flight.departure_airport.state %> <small>to</small> <%= @flight.arrival_airport.state %> <small>was successful.</small></h2>
+      </div>
+      <h1>Booking:</h1>
+    </header>
+
+    <table>
+      <thead>
+        <tr>
+          <th class="service"><strong>Flight Details</strong></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="service"><strong>Airline:</strong> </td>
+          <td class="desc"><%= @flight.airline_name %> </td>
+        </tr>
+        <tr>
+          <td class="service"><strong>From:</strong> </td>
+          <td class="desc"><%= @flight.departure_airport.name %></td>
+        </tr>
+        <tr>
+          <td class="service"><strong>To:</strong> </td>
+          <td class="desc"><%= @flight.arrival_airport.name %></td>
+        </tr>
+        <tr>
+          <td class="service"><strong>Take off date:</strong> </td>
+          <td class="desc"><%= @flight.departure_date.strftime('%d - %m - %Y') %>, <%= @flight.departure_date.strftime('%-l:%M%P') %></td>
+        </tr>
+        <tr>
+          <td class="service"><strong>Landing Date: </strong></strong></td>
+          <td class="desc"><%= @flight.arrival_date.strftime('%d - %m - %Y') %>, <%= @flight.arrival_date.strftime('%-l:%M%P') %></td>
+        </tr>
+        <tr>
+          <td class="service"><strong>No of seats reserved:</strong> </td>
+          <td class="desc"><%= @passengers.count %></td>
+        </tr>
+          <td colspan="4" class="grand total"><strong>Total Price: </strong></td>
+          <td class="grand total"><%= number_to_currency((@flight.price.to_i * @passengers.count), locale: :ng) %></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table>
+      <thead>
+        <tr>
+          <th class="service"><strong>Passengers Details</strong></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @passengers.each do |passenger| %>
+          <tr>
+            <td class="service"><strong>Name</strong> </td>
+            <td class="desc"><%= passenger.name %>  </td>
+          </tr>
+          <tr>
+            <td class="service"><strong>Email</strong> </td>
+            <td class="desc"> <%= passenger.email %>  </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  </body>
+</html>
