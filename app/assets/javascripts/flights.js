@@ -9,8 +9,8 @@ function validateFields(evt){
 }
 
 function validateDepartsArrives(){
-  if($('#from').val()===$('#to').val()){
-    toastr.error("Departing and Arriving Airport cannot be the same", "Error!")
+  if($('#from').val() === $('#to').val()){
+    toastr.error("Departure and Arrival Airport cannot be the same", "Error!")
     return false;
   }
   else{
@@ -21,18 +21,18 @@ function validateDepartsArrives(){
 function validateSuppliedDate(){
   var suppliedDate = $('#date-picker').val();
   if (suppliedDate !== ""){
-    var timeAllowance = 1000 * 60 * 60 * 23.99
+    var timeAllowance = 1000 * 60 * 60 * 24
     var presentTimeStamp = new Date().getTime();
     var suppliedTimeStamp = new Date(suppliedDate).getTime() + timeAllowance;
 
     if(suppliedTimeStamp < presentTimeStamp){
-      toastr.error("You cant enter a date in the past", "Error!");
+      toastr.error("You can\'t choose a date in the past", "Error!");
       return false;
     }
     else{
       return true
     }
   }
-  toastr.error("Please enter a date", "Error!");
+  toastr.error("Please choose a date", "Error!");
   return false;
 }

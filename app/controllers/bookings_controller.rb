@@ -9,11 +9,11 @@ class BookingsController < ApplicationController
   def create
     @booking = Booking.new(booking_params)
     respond_to do |format|
-      if @booking.save
+      if booking_params['passengers_attributes'].nil?
+        format.html { redirect_to :back,  notice: 'You must have at least one passenger'}
+      elsif @booking.save
         mail_user(@booking)
         format.html { redirect_to booking_path(@booking.id), notice: 'Flight Booked Successfuly.' }
-      else
-        format.html { redirect_to :back,  notice: 'You must have at least one passenger'}
       end
     end
   end
@@ -28,15 +28,15 @@ class BookingsController < ApplicationController
   end
 
   def mail_user(booking)
-    user = Passenger.where(booking_id: booking.id)
+    users = Passenger.where(booking_id: booking.id)
     if current_user
       send_mail(current_user.email, booking)
-      user.each do |x|
-        send_mail(x.email, booking) if x.email != current_user.email
+      users.each do |user|
+        send_mail(user.email, booking) if user.email != current_user.email
       end
     else
-      user.each do |x|
-        send_mail(x.email, booking)
+      users.each do |user|
+        send_mail(user.email, booking)
       end
     end
   end

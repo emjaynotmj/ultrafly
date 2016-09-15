@@ -2,11 +2,10 @@
   <div class = "container">
     <div class ="row">
       <div class =" col-md-12">
-
-        <% @booking.id %>
+        <%= bootstrap_flash %>
         <% @flight = Flight.find(@booking.flight_id) %>
         <% @passengers = Passenger.where(booking_id: @booking.id) %>
-        <h2 align= "center" class = "text-info">Your Booking For Flight "<%= @flight.airline_name %> #000<%= @flight.id %>" from <%= @flight.departure_airport.state %> to <%= @flight.arrival_airport.state %> was successful.</h2>
+        <h2 align= "center" class = "text-info"><small>Your Booking For Flight</small> "<%= @flight.airline_name %> #<%= @flight.flight_code %>" <small>from</small> <%= @flight.departure_airport.state %> <small>to</small> <%= @flight.arrival_airport.state %> <small>was successful.</small></h2>
         <hr>
 
         <div>

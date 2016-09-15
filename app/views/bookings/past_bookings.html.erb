@@ -1,52 +1,53 @@
 <div class= "pages">
   <div class="container">
     <div class="row" align ="center">
-      <caption><a class = "btn btn-link disabled"><%= notice %></a></caption>
-      <div class="col-md-12 profile">
+      <div class="col-md-12">
+
         <% if @bookings.count > 0 %>
-        <div class = "form-inline pull-right">
-          <div class="form-group">
-            <%= text_field :code, :code, class: "form-control", size: 23, placeholder: "search with Booking Code" %>
+          <div class = "form-inline pull-right">
+            <div class="form-group">
+              <%= text_field :code, :code, class: "form-control", size: 23, placeholder: "search with Booking Code" %>
+            </div>
+            <div class="form-group">
+              <td><a class="btn btn-sm btn-primary form-group">Search</a></td>
+            </div>
           </div>
-          <div class="form-group">
-            <td><a data-toggle="modal" data-target=".coming_soon" class ="btn btn-sm btn-primary form-group">Search</a></td>
-          </div>
-        </div>
-        <table class="table">
-          <caption>Bookings Summary</caption>
-          <thead>
-            <tr>
-              <th>Booking Reference Number</th>
-              <th>Booking Id</th>
-              <th>Flight Details</th>
-              <th>Date Created</th>
-              <th>Time Created</th>
-              <th>Manage</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @bookings.each do |booking| %>
-            <% flight = Flight.find(booking.flight_id) %>
-            <tr>
-            <td><%= booking.booking_ref_code %></td>
-            <td>Fly-#201511-<%= booking.id %></td>
-            <td><%= flight.airline_name %> #000<%= booking.flight_id %></td>
-            <td><%= booking.created_at.strftime("%d - %m - %Y") %></td>
-            <td><%= booking.created_at.strftime("%-l:%M%P") %></td>
-            <td><%= link_to "Manage", edit_booking_path(booking.id), class: "btn btn-sm btn-info" %></td>
-            </tr>
-            <% end %>
-          </tbody>
-        </table>
+          <table class="table">
+            <h4>Bookings Summary</h4>
+
+            <thead>
+              <tr>
+                <th>Airline</th>
+                <th>Flight no.</th>
+                <th>Departure Airport</th>
+                <th>Arrival Airport</th>
+                <th>Date Created</th>
+                <th>Time Created</th>
+                <th>Manage</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @bookings.each do |booking| %>
+                <% flight = Flight.find(booking.flight_id) %>
+                <tr>
+                <td><%= flight.airline_name %></td>
+                <td><%= flight.flight_code %></td>
+                <td><%= flight.departure_airport.name %></td>
+                <td><%= flight.arrival_airport.name %></td>
+                <td><%= booking.created_at.strftime("%d - %m - %Y") %></td>
+                <td><%= booking.created_at.strftime("%-l:%M%P") %></td>
+                <td><%= link_to "Manage", root_path, class: "btn btn-sm btn-info" %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+
         <% else %>
-        <a href="/flights" class ="btn btn-primary">Book A flight now</a>
+          <a href="/flights" class ="btn btn-primary">Book A flight now</a>
         <% end %>
-        <div>
 
-        </div>
-        <div>
-
-        </div>
+      </div>
     </div>
   </div>
 </div>
