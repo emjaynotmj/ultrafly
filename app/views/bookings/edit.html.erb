@@ -1,0 +1,39 @@
+<div class="pages">
+  <div class ="container">
+    <%= bootstrap_flash %>
+    <div class ="row">
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class ="panel-body ">
+            <h4 class="">Booking Reference: <strong><%= @booking.booking_ref_code%></strong></h4>
+            <br>
+            <p align="center">Booking for <%= @selected_flight.airline_name %> - <%= @selected_flight.flight_code %>
+            <br>
+            <p>Flight Code: <strong><%= @selected_flight.flight_code %></strong></p>
+            <p>Airline: <strong><%= @selected_flight.airline_name %></strong></p>
+            <p>Departure: <strong><%= @selected_flight.departure_airport.name %></strong></p>
+            <p>Destination: <strong><%= @selected_flight.arrival_airport.name %></strong></p>
+            <p>Take Off Date: <strong><%= @selected_flight.departure_date.try(:strftime, "%d - %m - %Y") %></strong></p>
+            <p>Take Off Time: <strong><%= @selected_flight.departure_date.try(:strftime, '%l:%M%P') %></strong></p>
+            <p>Cost/Passenger: <strong class="cost"><%= number_to_currency(@selected_flight.price, locale: :us) %></strong></p>
+            <p>Passenger(s): <strong class="pass_num"><%= params[:number_of_passengers].to_i %></strong></p>
+            <p>Total Cost: <strong class="total"><%= number_to_currency((@selected_flight.price * params[:number_of_passengers].to_i ), locale: :us)%></strong></p>
+            <br>
+            <% if @selected_flight.departure_date >= DateTime.now %>
+              <%= link_to 'Cancel Booking', @booking, method: :delete, data: { confirm: 'Are you sure?'},class: "btn btn-danger"  %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <% if @selected_flight.departure_date >= DateTime.now %>
+          <%= render 'booking_form' %>
+        <% else %>
+          <p class= "alert-warning"> Your flight has taken off <p>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>
