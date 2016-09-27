@@ -10,14 +10,14 @@
   </div>
 
   <div class="form-group">
-    <%= label_tag :passengers, "How many Passengers?" %>
-    <%= select_tag :passengers, options_for_select((1..10)), class: "form-control  transparent-input", required: true %>
+    <%= label_tag :number_of_passengers, "How many Passengers?" %>
+    <%= select_tag :number_of_passengers, options_for_select((1..10)), class: "form-control  transparent-input", required: true %>
   </div>
 
   <div class="form-group">
-    <%= label_tag :date, "When do you want to leave?" %>
+    <%= label_tag :departure_date, "When do you want to leave?" %>
     <div class="input-group">
-      <input id="date-picker" type="date" name="date" class="date-picker form-control transparent-input", required = 'true' />
+      <input id="date-picker" type="date" name="departure_date" class="date-picker form-control transparent-input", required = 'true' />
       <label for="date-picker" class="input-group-addon btn">
         <span class="glyphicon glyphicon-calendar"></span>
       </label>

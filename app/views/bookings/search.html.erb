@@ -1,0 +1,15 @@
+<div class="pages row">
+  <div class="col-sm-offset-5">
+    <%= form_tag(search_result_path, method: "get", enforce_utf8: false) do %>
+      <div class="">
+        <%= text_field_tag :booking_ref_code, nil, placeholder: "Enter your booking reference number", required: true, size: 35 %>
+      </div>
+      <br>
+      <div class="col-sm-offset-1">
+        <%= submit_tag "Search Bookings", name: nil, class: "btn btn-primary center" %>
+      </div>
+      <div class="container" id="search-result-container">
+      </div>
+    <% end %>
+  </div>
+</div>
