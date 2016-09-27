@@ -1,0 +1,23 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Passengers Details</h3>
+  </div>
+  <% flash[:notice] %>
+  <div class="panel-body">
+    <%= form_for(@booking) do |f| %>
+
+      <%= f.hidden_field :total_price, { value: "#{@selected_flight.price}", class: "cost_tracker" } %>
+
+      <input type="hidden" name="booking[flight_id]" value= "<%= params['flight_id'] %>" />
+
+      <%= f.fields_for :passengers do |passenger| %>
+        <%= render 'passenger_fields', :f => passenger %>
+      <% end %>
+
+      <div class="links panel-footer">
+        <%= link_to_add_association 'Add Passenger', f, :passengers, class: 'btn btn-primary', onclick: 'adder()' %>
+        <%= f.submit 'Book Flight', class: "btn btn-primary pull-right smtbook" %>
+      </div>
+    <% end %>
+  </div>
+</div>
