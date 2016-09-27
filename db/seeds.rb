@@ -1,14 +1,9 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
 
 airports = [
-  { name: 'Nnamdi Azikwe International Airport, Abuja', state: 'Abuja'},
-  { name: 'Akanu Ibiam International Airport, Enugu', state: 'Enugu'},
+  { name: 'Nnamdi Azikwe International Airport, Abuja', state: 'Abuja' },
+  { name: 'Akanu Ibiam International Airport, Enugu', state: 'Enugu' },
   { name: 'Alakia Airport, Ibadan', state: 'Ibadan'},
   { name: 'Arakale Airport, Akure', state: 'Akure'},
   { name: 'Mallam Aminu Kano International Airport, Kano', state: 'Kano'},
@@ -39,7 +34,7 @@ end
   flight.arrival_airport_id = Airport.order('RANDOM()').where.not(id: flight.departure_airport_id).first.id
   flight.departure_date = date
   flight.arrival_date = date + forward_rand.hour
-  flight.price = Faker::Commerce.price * 1000
+  flight.price = Faker::Commerce.price
   flight.available_seats = Random.rand(10..30)
   flight.save!
 }
