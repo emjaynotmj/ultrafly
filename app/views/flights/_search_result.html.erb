@@ -4,6 +4,7 @@
       <% first_flight = @flights.first %>
       <h2 class="text-info"><small>Search results for flights from</small>
         <%= first_flight.departure_airport.state %> <small>to</small> <%= first_flight.arrival_airport.state %>
+        <small>starting from</small> <%= DateTime.parse(params[:departure_date]).strftime("%b %d, %Y") %>
       </h2>
       <hr>
       <%= render 'flights/flights' %>

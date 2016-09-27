@@ -3,6 +3,6 @@ class UltraMailer < ApplicationMailer
 
   def booking_confirmed(email, booking)
     @booking = booking
-    mail(to: email, subject: 'Booking Confirmed' )
+    mail(to: email, subject: 'Booking Confirmed')
   end
 end

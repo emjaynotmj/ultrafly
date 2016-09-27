@@ -134,7 +134,7 @@
           <td class="desc"><%= @passengers.count %></td>
         </tr>
           <td colspan="4" class="grand total"><strong>Total Price: </strong></td>
-          <td class="grand total"><%= number_to_currency((@flight.price.to_i * @passengers.count), locale: :ng) %></td>
+          <td class="grand total"><%= number_to_currency(@booking.total_price, locale: :us) %></td>
         </tr>
       </tbody>
     </table>
@@ -156,6 +156,7 @@
             <td class="desc"> <%= passenger.email %>  </td>
           </tr>
         <% end %>
+        <hr>
       </tbody>
     </table>
 
