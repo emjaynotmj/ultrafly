@@ -13,7 +13,7 @@ class BookingsController < ApplicationController
   end
 
   def create
-    params[:payment_type] = 'new_booking'
+    params[:payment_type] = "new_booking"
     payment unless verify_passenger_info
   end
 
@@ -38,7 +38,7 @@ class BookingsController < ApplicationController
   end
 
   def destroy
-    redirect_to bookings_path, notice: 'Booking cancelled.' if @booking.destroy
+    redirect_to bookings_path, notice: "Booking cancelled." if @booking.destroy
   end
 
   def search_result
@@ -64,16 +64,16 @@ class BookingsController < ApplicationController
   end
 
   def verify_passenger_info
-    if booking_params['passengers_attributes'].nil?
-      redirect_to :back, notice: 'Enter all Fields'
+    if booking_params["passengers_attributes"].nil?
+      redirect_to :back, notice: "Enter all Fields"
     end
   end
 
   def create_booking
-    @booking = Booking.new(session[:info]['booking'])
+    @booking = Booking.new(session[:info]["booking"])
     @booking.booking_ref_code = params[:token]
     @booking.user_id = current_user.id if current_user
-    redirect_to booking_path(@booking), notice: 'payment successful.' if @booking.save
+    redirect_to booking_path(@booking), notice: "payment successful." if @booking.save
   end
 
   def search

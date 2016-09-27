@@ -1,7 +1,6 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.feature "User Registration" do
-
   scenario "a guest visitor should be able to register" do
     visit root_path
     click_link "Sign Up"

@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Airport, type: :model do
   subject { build(:airport) }

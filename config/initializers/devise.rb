@@ -12,7 +12,7 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
+  config.mailer_sender = "please-change-me-at-config-initializers-devise@example.com"
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -24,7 +24,7 @@ Devise.setup do |config|
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
-  require 'devise/orm/active_record'
+  require "devise/orm/active_record"
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
@@ -272,5 +272,5 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
 
-  config.secret_key = 'cff9df9f9274fe57c6b72da1878a312661253f491fa03d0679eefe727de6af50f6ee73edc99c5899c48d4fe3dbcab7008b30151d8ea32e0cd875aefe3c1cb6b4'
+  config.secret_key = "cff9df9f9274fe57c6b72da1878a312661253f491fa03d0679eefe727de6af50f6ee73edc99c5899c48d4fe3dbcab7008b30151d8ea32e0cd875aefe3c1cb6b4"
 end

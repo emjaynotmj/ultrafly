@@ -33,18 +33,18 @@ A flight booking application that allows users to book for available flights. It
 
 ## External Dependencies/Gems
 
-~ Rails Framework
-~ Devise
-~ Simple_Form
-~ Faker
-~ Cocoon
-~ Puma Web Server
-~ Rails_12factor
-~ Letter_opener
-~ Toastr-rails
-~ RSpec-rails
-~ Capybara
-~ Factory_girls
+~ Rails Framework<br>
+~ Devise<br>
+~ Simple_Form<br>
+~ Faker<br>
+~ Cocoon<br>
+~ Puma Web Server<br>
+~ Rails_12factor<br>
+~ Letter_opener<br>
+~ Toastr-rails<br>
+~ RSpec-rails<br>
+~ Capybara<br>
+~ Factory_girls<br>
 ~ Database_cleaner
 
 
@@ -66,14 +66,15 @@ A flight booking application that allows users to book for available flights. It
 
 1. Users can search for flights based on the following criteria: **flight date**, **destination airport**, **departure airport** and **number of passengers**
 2. Users can book for available flights.
-3. Registered Users can see their past booking History.
-4. Instantly notifies users via email on successful flight booking.
+3. users can make payment for their bookings via PayPal.
+4. Registered Users can see their past booking History.
+5. Instantly notifies users via email on successful flight booking and record update.
+6. Users can search for bookings based on their booking reference number.
+7. Registered users can edit and update their booking records if the flight has not moved yet.
+8. Registered users can edit their profile with name, phone number and gender.
+9. registered users are prompted to make payment upon update of their booking records.
+10. Users can see the listing of all available flights on the "All Flights" page.
 
-
-## Limitations
-
-1. Users can not make payment for their flight
-2. Registered users can not edit or cancel their past bookings
 
 
 ## Contributing

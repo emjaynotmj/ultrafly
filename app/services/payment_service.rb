@@ -24,20 +24,20 @@ class PaymentService
 
   def paypal_request_params
     {
-      username: 'abdulmujeeb.jamiu-facilitator_api1.andela.com',
-      password: '2N4HT7JQ8G65JVWY',
-      signature: 'AFcWxV21C7fd0v3bYYYRCpSSRl31A9X.40ffeKZ.vcGUBaVzZfVwVxtN'
+      username: "abdulmujeeb.jamiu-facilitator_api1.andela.com",
+      password: "2N4HT7JQ8G65JVWY",
+      signature: "AFcWxV21C7fd0v3bYYYRCpSSRl31A9X.40ffeKZ.vcGUBaVzZfVwVxtN"
     }
   end
 
   def payment_request_params
     {
-      description: 'Payment for Flight Booking at ultrafly.com',
+      description: "Payment for Flight Booking at ultrafly.com",
       quantity: 1,
       amount: @total_cost,
       custom_fields: {
-        CARTBORDERCOLOR: 'C00000',
-        LOGOIMG: 'http://clipartbest.com//cliparts/McL/oaR/McLoaRqca.svg'
+        CARTBORDERCOLOR: "C00000",
+        LOGOIMG: "http://clipartbest.com//cliparts/McL/oaR/McLoaRqca.svg"
       }
     }
   end

@@ -18,12 +18,12 @@ module PaymentHelper
   end
 
   def payment_success
-    if (session[:info]['token'] == params[:token]) &&
-       (session[:info]['payment_type'] == 'new_booking')
+    if (session[:info]["token"] == params[:token]) &&
+       (session[:info]["payment_type"] == "new_booking")
       create_booking
     else
-      @booking = Booking.find(session[:info]['id'])
-      redirect_to booking_path(@booking), notice: 'Your update was successful.'
+      @booking = Booking.find(session[:info]["id"])
+      redirect_to booking_path(@booking), notice: "Your update was successful."
     end
     mail_user(@booking)
     session.delete(:info)

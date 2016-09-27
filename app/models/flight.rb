@@ -1,6 +1,6 @@
 class Flight < ActiveRecord::Base
-  belongs_to :arrival_airport, class_name: 'Airport'
-  belongs_to :departure_airport, class_name: 'Airport'
+  belongs_to :arrival_airport, class_name: "Airport"
+  belongs_to :departure_airport, class_name: "Airport"
   has_many :bookings
 
   validates :airline_name, presence: true
@@ -20,9 +20,9 @@ class Flight < ActiveRecord::Base
     departure_date,
     number_of_passengers
   )
-    sql_query = 'departure_date >= ? and available_seats > ?'
+    sql_query = "departure_date >= ? and available_seats > ?"
     flights = where(sql_query, departure_date, number_of_passengers)
-    flights.order!('departure_date')
+    flights.order!("departure_date")
     flights.select do |flight|
       flight.departure_airport_id == departure_airport &&
         flight.arrival_airport_id == arrival_airport
