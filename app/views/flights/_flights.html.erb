@@ -1,5 +1,5 @@
 <%= form_tag({controller: 'bookings', action: 'new'}, method: 'get') do %>
-<input name="no_of_passengers" type="hidden" value= <%= params[:passengers] %> />
+<input name="number_of_passengers" type="hidden" value= <%= params[:number_of_passengers] %> />
   <% @flights.each do |flight| %>
     <li class="list-group-item flight-list">
       <div class="container center">
@@ -27,7 +27,7 @@
           </div>
 
           <div class="col-md-3 search-price">
-            <span><%= (number_to_currency flight.price, locale: :ng) %></span><span>/person</span>
+            <span><%= number_to_currency(flight.price, locale: :us) %></span><span>/person</span>
             <br>
             <span><%= submit_tag 'Select Flight', class: "btn btn-primary" %></span>
           </div>
