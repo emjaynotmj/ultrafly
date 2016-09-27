@@ -33,18 +33,18 @@ A flight booking application that allows users to book for available flights. It
 
 ## External Dependencies/Gems
 
-~ Rails Framework
-~ Devise
-~ Simple_Form
-~ Faker
-~ Cocoon
-~ Puma Web Server
-~ Rails_12factor
-~ Letter_opener
-~ Toastr-rails
-~ RSpec-rails
-~ Capybara
-~ Factory_girls
+~ Rails Framework<br>
+~ Devise<br>
+~ Simple_Form<br>
+~ Faker<br>
+~ Cocoon<br>
+~ Puma Web Server<br>
+~ Rails_12factor<br>
+~ Letter_opener<br>
+~ Toastr-rails<br>
+~ RSpec-rails<br>
+~ Capybara<br>
+~ Factory_girls<br>
 ~ Database_cleaner
 
 
