@@ -49,7 +49,7 @@ gem 'pry-nav', '~> 0.2.4'
 
 gem 'toastr-rails', '~> 1.0', '>= 1.0.3'
 
-gem 'paypal-express'
+gem 'paypal-express', github: 'andela-ajamiu/paypal-express'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
