@@ -7,6 +7,7 @@
           <div class="panel-heading">
             <h3 class="panel-title">Flight Information</h3>
           </div>
+          <% @selected_flight = Flight.find(params[:flight_id]) %>
           <div class="panel-body">
             <p>Flight Code: <strong><%= @selected_flight.flight_code %></strong></p>
             <p>Airline: <strong><%= @selected_flight.airline_name %></strong></p>
@@ -14,35 +15,15 @@
             <p>Destination: <strong><%= @selected_flight.arrival_airport.name %></strong></p>
             <p>Take Off Date: <strong><%= @selected_flight.departure_date.try(:strftime, "%d - %m - %Y") %></strong></p>
             <p>Take Off Time: <strong><%= @selected_flight.departure_date.try(:strftime, '%l:%M%P') %></strong></p>
-            <p>Cost/Passenger: <strong><%= number_to_currency @selected_flight.price, locale: :ng %></strong></p>
-            <p>Passenger(s): <strong><%= params[:no_of_passengers] %></strong></p>
-            <p>Total Cost: <strong><%= number_to_currency((@selected_flight.price * params[:no_of_passengers].to_i), locale: :ng) %></strong></p>
+            <p>Cost/Passenger: <strong class="cost"><%= number_to_currency(@selected_flight.price, locale: :us) %></strong></p>
+            <p>Passenger(s): <strong class="pass_num"><%= params[:number_of_passengers].to_i %></strong></p>
+            <p>Total Cost: <strong class="total"><%= number_to_currency((@selected_flight.price * params[:number_of_passengers].to_i ), locale: :us)%></strong></p>
           </div>
         </div>
       </div>
 
       <div class = "col-md-7">
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            <h3 class="panel-title">Passengers Details</h3>
-          </div>
-          <% flash[:notice] %>
-          <div class="panel-body">
-            <%= form_for(@booking) do |f| %>
-              <%= f.fields_for :passengers do |passenger| %>
-                <%= render 'passenger_fields', :f => passenger %>
-              <% end %>
-
-              <input name="booking[flight_id]" type="hidden" value= <%= params[:flight_id] %> />
-              <input name="booking[user_id]" type="hidden" value= <%= current_user.id if current_user %> />
-
-              <div class="links panel-footer">
-                <%= link_to_add_association 'Add Passenger', f, :passengers, class: 'btn btn-primary' %>
-                <%= f.submit 'Book Flight', class: "btn btn-primary pull-right" %>
-              </div>
-            <% end %>
-          </div>
-        </div>
+        <%= render 'booking_form' %>
       </div>
 
     </div>
