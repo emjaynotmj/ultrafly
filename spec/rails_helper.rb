@@ -11,9 +11,15 @@ require "capybara/rails"
 require "capybara/rspec"
 require "database_cleaner"
 require "capybara/poltergeist"
+require "simplecov"
 require "coveralls"
-
 Coveralls.wear!
+
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+  SimpleCov::Formatter::HTMLFormatter,
+  Coveralls::SimpleCov::Formatter
+]
+SimpleCov.start
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
