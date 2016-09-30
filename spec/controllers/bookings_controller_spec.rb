@@ -2,8 +2,8 @@ require "rails_helper"
 
 RSpec.describe BookingsController do
   before(:all) do
-    @flight = create(:flight)
-    @booking = create(:booking)
+    @flight = build(:flight)
+    @booking = build(:booking)
   end
 
   let(:valid_booking_params)  do {
