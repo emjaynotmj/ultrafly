@@ -77,7 +77,7 @@ group :development, :test do
 
   gem "coveralls", "~> 0.8.15", require: false
 
-  gem "simplecov", "~> 0.12.0", :require => false
+  # gem "simplecov", "~> 0.12.0", :require => false
 end
 
 group :development do

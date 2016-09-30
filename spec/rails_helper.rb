@@ -5,14 +5,11 @@ require File.expand_path("../../config/environment", __FILE__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require "spec_helper"
 require "rspec/rails"
-require "simplecov"
 require "capybara/rails"
 require "capybara/rspec"
 require "database_cleaner"
 require "capybara/poltergeist"
 require "coveralls"
-
-SimpleCov.start "rails"
 
 Coveralls.wear!
 # Add additional requires below this line. Rails is not loaded until this point!
