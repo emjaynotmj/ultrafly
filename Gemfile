@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 ruby "2.2.1"
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+# Bundle edge Rails instead: gem "rails", github: "rails/rails"
 gem "rails"
 # Use SCSS for stylesheets
 gem "sass-rails", "~> 5.0"
@@ -10,7 +10,7 @@ gem "uglifier", ">= 1.3.0"
 # Use CoffeeScript for .coffee assets and views
 gem "coffee-rails", "~> 4.1.0"
 # See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+# gem "therubyracer", platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem "jquery-rails", "~> 4.2", ">= 4.2.1"
@@ -51,10 +51,10 @@ gem "toastr-rails", "~> 1.0", ">= 1.0.3"
 
 gem "paypal-express", github: "andela-ajamiu/paypal-express"
 
-gem 'figaro', '~> 1.1', '>= 1.1.1'
+gem "figaro", "~> 1.1", ">= 1.1.1"
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  # Call "byebug" anywhere in the code to stop execution and get a debugger console
   gem "byebug", "~> 9.0", ">= 9.0.5"
 
   gem "rspec-rails", "~> 3.5", ">= 3.5.1"
@@ -73,11 +73,11 @@ group :development, :test do
 
   gem "sqlite3", "~> 1.3", ">= 1.3.11"
 
-  gem 'shoulda-matchers', '~> 3.1', '>= 3.1.1'
+  gem "shoulda-matchers", "~> 3.1", ">= 3.1.1"
 
-  gem 'coveralls', '~> 0.8.15', require: false
+  gem "coveralls", "~> 0.8.15", require: false
 
-  # gem 'simplecov', '~> 0.10.0'
+  gem "simplecov", "~> 0.12.0", :require => false
 end
 
 group :development do

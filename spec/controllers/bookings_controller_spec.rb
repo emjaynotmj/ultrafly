@@ -3,6 +3,20 @@ require "rails_helper"
 RSpec.describe BookingsController do
   before(:all) do
     @flight = create(:flight)
+    @booking = create(:booking)
+  end
+
+  let(:valid_booking_params)  do {
+    booking_ref_code: Faker::Code.asin,
+    total_price: Faker::Commerce.price,
+    flight_id: @flight.id,
+    user_id: 1,
+    passengers_attributes:
+    [
+      name: Faker::Name.name,
+      email: Faker::Internet.email
+    ]
+  }
   end
 
   context "GET #new" do
@@ -22,5 +36,9 @@ RSpec.describe BookingsController do
     end
   end
 
-
+  context "GET #index" do
+    it "returns the list of bookings by the user" do
+      get :index
+    end
+  end
 end
