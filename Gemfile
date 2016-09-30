@@ -76,6 +76,8 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 3.1', '>= 3.1.1'
 
   gem 'coveralls', '~> 0.8.15', require: false
+
+  # gem 'simplecov', '~> 0.10.0'
 end
 
 group :development do
