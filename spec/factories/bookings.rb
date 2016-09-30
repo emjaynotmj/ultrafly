@@ -1,8 +1,16 @@
 FactoryGirl.define do
+
   factory :booking do
-    booking_ref_code "JKHSD7HDS7"
-    total_price 55
-    flight_id 1
-    user_id 1
+    booking_ref_code { Faker::Code.asin }
+    total_price { Faker::Commerce.price }
+    flight
+    user
+    passengers_attributes do
+    [
+      name: Faker::Name.name,
+      email: Faker::Internet.email
+    ]
+    end
+
   end
 end

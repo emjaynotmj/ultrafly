@@ -40,7 +40,7 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = false
-  config.render_views
+  # config.render_views
   config.after(:all) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with :truncation
@@ -67,7 +67,19 @@ RSpec.configure do |config|
 end
 
 Capybara.javascript_driver = :poltergeist
-options = { js_errors: false }
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, options)
+# options = { js_errors: false }
+# Capybara.register_driver :poltergeist do |app|
+#   Capybara::Poltergeist::Driver.new(app, options)
+# end
+
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end
+
+RSpec.configure do |config|
+  config.include Devise::Test::ControllerHelpers, type: :controller
 end
