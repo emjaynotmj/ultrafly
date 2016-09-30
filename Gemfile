@@ -53,8 +53,6 @@ gem "paypal-express", github: "andela-ajamiu/paypal-express"
 
 gem 'figaro', '~> 1.1', '>= 1.1.1'
 
-gem 'shoulda-matchers', '~> 3.1', '>= 3.1.1'
-
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", "~> 9.0", ">= 9.0.5"
@@ -74,6 +72,10 @@ group :development, :test do
   gem "launchy", "~> 2.4", ">= 2.4.3"
 
   gem "sqlite3", "~> 1.3", ">= 1.3.11"
+
+  gem 'shoulda-matchers', '~> 3.1', '>= 3.1.1'
+
+  gem 'coveralls', '~> 0.8.15', require: false
 end
 
 group :development do
