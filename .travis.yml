@@ -1,6 +1,6 @@
 language: ruby
 rvm:
   - 2.2.1
-# script:
-#   - RAILS_ENV=test bin/rails db:migrate --trace
-#   - bundle exec rspec spec/
+script:
+  - RAILS_ENV=test bin/rails db:migrate --trace
+  - bundle exec rspec spec/
