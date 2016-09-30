@@ -15,13 +15,12 @@ require "simplecov"
 require "coveralls"
 Coveralls.wear!
 
-SimpleCov.start "rails" do
 test_formatter = [
   SimpleCov::Formatter::HTMLFormatter,
   Coveralls::SimpleCov::Formatter
 ]
-formatter SimpleCov::Formatter::MultiFormatter.new(test_formatter)
-end
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(test_formatter)
+SimpleCov.start
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
