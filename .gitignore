@@ -25,3 +25,6 @@
 
 # Ignore Gemfile.lock
 *Gemfile.lock
+
+#Ignore secret config file
+/config/application.yml
