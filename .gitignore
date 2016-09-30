@@ -25,3 +25,9 @@
 
 # Ignore Gemfile.lock
 *Gemfile.lock
+
+# Ignore application configuration
+/config/application.yml
+
+#Ignore SimpleCov coverage files
+/coverage
