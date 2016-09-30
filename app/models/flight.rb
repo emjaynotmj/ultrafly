@@ -12,20 +12,25 @@ class Flight < ActiveRecord::Base
   validates :flight_code, presence: true
   validates :price, presence: true
 
-  accepts_nested_attributes_for :bookings
+  def self.available_flights
+    current_time = DateTime.tomorrow
+    where("departure_date >= ?", current_time).sort_by_departure_date
+  end
 
-  def self.search(
-    departure_airport,
-    arrival_airport,
-    departure_date,
-    number_of_passengers
-  )
+  def self.search(search_params)
     sql_query = "departure_date >= ? and available_seats > ?"
-    flights = where(sql_query, departure_date, number_of_passengers)
-    flights.order!("departure_date")
-    flights.select do |flight|
-      flight.departure_airport_id == departure_airport &&
-        flight.arrival_airport_id == arrival_airport
+    flights = where(
+      sql_query,
+      search_params[:departure_date],
+      search_params[:number_of_passengers].to_i
+    )
+    flights.sort_by_departure_date.select do |flight|
+      flight.departure_airport_id == search_params[:from].to_i &&
+        flight.arrival_airport_id == search_params[:to].to_i
     end
+  end
+
+  def self.sort_by_departure_date
+    order("departure_date")
   end
 end

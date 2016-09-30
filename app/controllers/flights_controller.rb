@@ -1,16 +1,15 @@
 class FlightsController < ApplicationController
   def index
-    current_time = DateTime.tomorrow
-    @flights = Flight.where("departure_date >= ?", current_time).
-               order("departure_date")
+    @flights = Flight.available_flights
   end
 
   def search
-    @flights = Flight.search(
-      params[:from].to_i,
-      params[:to].to_i,
-      params[:departure_date],
-      params[:number_of_passengers].to_i
-    )
+    @flights = Flight.search(search_params)
+  end
+
+  private
+
+  def search_params
+    params.permit(:from, :to, :departure_date, :number_of_passengers)
   end
 end

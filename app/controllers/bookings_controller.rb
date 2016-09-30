@@ -35,6 +35,7 @@ class BookingsController < ApplicationController
     else
       verify_passenger_info
     end
+
   end
 
   def destroy
@@ -43,7 +44,11 @@ class BookingsController < ApplicationController
 
   def search_result
     @booking = Booking.find_by(booking_ref_code: params[:booking_ref_code])
-    render :show
+    if @booking
+      render :show
+    else
+      redirect_to :back, notice: "Booking not found"
+    end
   end
 
   private
@@ -67,6 +72,7 @@ class BookingsController < ApplicationController
     if booking_params["passengers_attributes"].nil?
       redirect_to :back, notice: "Enter all Fields"
     end
+
   end
 
   def create_booking
@@ -74,8 +80,5 @@ class BookingsController < ApplicationController
     @booking.booking_ref_code = params[:token]
     @booking.user_id = current_user.id if current_user
     redirect_to booking_path(@booking), notice: "payment successful." if @booking.save
-  end
-
-  def search
   end
 end

@@ -24,9 +24,9 @@ class PaymentService
 
   def paypal_request_params
     {
-      username: "abdulmujeeb.jamiu-facilitator_api1.andela.com",
-      password: "2N4HT7JQ8G65JVWY",
-      signature: "AFcWxV21C7fd0v3bYYYRCpSSRl31A9X.40ffeKZ.vcGUBaVzZfVwVxtN"
+      username: ENV["paypal_user_name"],
+      password: ENV["paypal_password"],
+      signature: ENV["paypal_signature"]
     }
   end
 
