@@ -2,4 +2,4 @@
 
 Rails.application.config.verify_ssl = false
 
-verify_ssl: false
+# verify_ssl: false
