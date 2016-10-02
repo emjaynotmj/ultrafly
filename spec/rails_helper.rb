@@ -10,7 +10,6 @@ require "capybara/rspec"
 require "database_cleaner"
 require "capybara/poltergeist"
 # require "selenium-webdriver"
-require 'always_verify_ssl_certificates'
 require "simplecov"
 require "coveralls"
 Coveralls.wear!
@@ -107,10 +106,3 @@ end
 RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
 end
-
-AlwaysVerifySSLCertificates.ca_file = "/path/path/path/cacert.pem"
-
-http= Net::HTTP.new('https://api-3t.sandbox.paypal.com', 443)
-http.use_ssl = true
-req = Net::HTTP::Get.new('/')
-response = http.request(req)

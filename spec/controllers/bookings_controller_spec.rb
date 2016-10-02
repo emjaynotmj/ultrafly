@@ -85,28 +85,28 @@ RSpec.describe BookingsController do
     end
   end
 
-  context "POST #create" do
-    it "should redirect anonymous user to login page" do
-      post :create, booking: valid_booking_params
-      expect(controller).to respond_with(302)
-      expect(:notice).to be_present
-    end
-  end
+  # context "POST #create" do
+  #   it "should redirect anonymous user to login page" do
+  #     post :create, booking: valid_booking_params
+  #     expect(controller).to respond_with(302)
+  #     expect(:notice).to be_present
+  #   end
+  # end
 
   context "PUT #update" do
-    it "should redirect anonymous user to login page" do
-      sign_in(@bookings.first.user)
-      valid_booking_params[:passengers_attributes] <<
-        {
-          name: Faker::Name.name,
-          email: Faker::Internet.email
-        }
-      put :update, id: @bookings.first, booking: valid_booking_params
-      expect(controller).to respond_with(302)
-      expect(:notice).to be_present
-    end
+    # it "should redirect anonymous user to login page" do
+    #   sign_in(@bookings.first.user)
+    #   valid_booking_params[:passengers_attributes] <<
+    #     {
+    #       name: Faker::Name.name,
+    #       email: Faker::Internet.email
+    #     }
+    #   put :update, id: @bookings.first, booking: valid_booking_params
+    #   expect(controller).to respond_with(302)
+    #   expect(:notice).to be_present
+    # end
 
-    it "should redirect anonymous user to login page" do
+    it "should redirect user with invalid booking parameters" do
       sign_in(@bookings.second.user)
       valid_booking_params[:passengers_attributes] <<
         {
@@ -119,27 +119,13 @@ RSpec.describe BookingsController do
   end
 
   context "GET #search_result" do
-    it "should redirect anonymous user to login page" do
+    it "should redirect user to the booking show page" do
       sign_in(@bookings.second.user)
       get :search_result, booking_ref_code: @bookings.second.booking_ref_code
       expect(response).to redirect_to(booking_path(@bookings.second.id))
     end
 
-    it "should redirect anonymous user to login page" do
-      sign_in(@bookings.first.user)
-      get :search_result, booking_ref_code: 123456789
-      expect(response).to redirect_to(search_booking_path)
-    end
-  end
-
-  context "GET #search_result" do
-    it "should redirect anonymous user to login page" do
-      sign_in(@bookings.second.user)
-      get :search_result, booking_ref_code: @bookings.second.booking_ref_code
-      expect(response).to redirect_to(booking_path(@bookings.second.id))
-    end
-
-    it "should redirect anonymous user to login page" do
+    it "should redirect back to the booking search page" do
       sign_in(@bookings.first.user)
       get :search_result, booking_ref_code: 123456789
       expect(response).to redirect_to(search_booking_path)
