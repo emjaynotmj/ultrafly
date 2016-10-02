@@ -7,7 +7,8 @@ module Net
 
     def use_ssl=(flag)
       self.ca_file = "/etc/pki/tls/certs/ca-bundle.crt"  # for Centos/Redhat
-      self.verify_mode = OpenSSL::SSL::VERIFY_PEER
+      self.verify_mode = none
+      self.verify_ssl = false
       self.original_use_ssl = flag
     end
   end
