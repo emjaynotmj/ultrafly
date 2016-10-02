@@ -10,6 +10,7 @@ require "capybara/rspec"
 require "database_cleaner"
 require "capybara/poltergeist"
 # require "selenium-webdriver"
+require "always_verify_ssl_certificates"
 require "simplecov"
 require "coveralls"
 Coveralls.wear!
