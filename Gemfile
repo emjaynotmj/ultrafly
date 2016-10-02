@@ -78,6 +78,8 @@ group :development, :test do
   gem "coveralls", "~> 0.8.15", require: false
 
   gem "simplecov", "~> 0.12.0", require: false
+
+  gem 'selenium-webdriver', '~> 2.53', '>= 2.53.4'
 end
 
 group :development do

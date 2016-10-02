@@ -1,5 +1,3 @@
-# require "SimpleCov"
-# SimpleCov.start "rails"
 # This file is copied to spec/ when you run "rails generate rspec:install"
 ENV["RAILS_ENV"] ||= "test"
 require File.expand_path("../../config/environment", __FILE__)
@@ -11,6 +9,7 @@ require "capybara/rails"
 require "capybara/rspec"
 require "database_cleaner"
 require "capybara/poltergeist"
+# require "selenium-webdriver"
 require "simplecov"
 require "coveralls"
 Coveralls.wear!
@@ -53,10 +52,16 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = false
   # config.render_views
+  config.before(:all) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with :truncation
+  end
+
   config.after(:all) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with :truncation
   end
+
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
   # `post` in specs under `spec/controllers`.
@@ -78,12 +83,18 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 end
 
-Capybara.javascript_driver = :poltergeist
+# Capybara.javascript_driver = :poltergeist
 # options = { js_errors: false }
 # Capybara.register_driver :poltergeist do |app|
 #   Capybara::Poltergeist::Driver.new(app, options)
 # end
 
+# Capybara.javascript_driver = :selenium
+# Capybara.register_driver :selenium do |app|
+#   Capybara::Selenium::Driver.new(app, js_errors: false, inspector: true,
+#                                          timeout: 60,
+#                                          phantomjs: Phantomjs.path)
+# end
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|

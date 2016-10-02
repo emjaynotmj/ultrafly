@@ -1,6 +1,6 @@
 class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:search, :index]
+  before_action :authenticate_user!, only: [:index, :edit, :update, :destroy, :search, :search_result]
 
   include PaymentHelper
   include MailerHelper
@@ -14,7 +14,7 @@ class BookingsController < ApplicationController
 
   def create
     params[:payment_type] = "new_booking"
-    payment unless verify_passenger_info
+    payment
   end
 
   def index
@@ -33,22 +33,24 @@ class BookingsController < ApplicationController
     if @booking.update(booking_params)
       payment
     else
-      verify_passenger_info
+      redirect_to edit_booking_path(@booking), notice: "Enter all Fields"
     end
-
   end
 
   def destroy
-    redirect_to bookings_path, notice: "Booking cancelled." if @booking.destroy
+    redirect_to bookings_path, notice: "Booking cancelled" if @booking.destroy
   end
 
   def search_result
     @booking = Booking.find_by(booking_ref_code: params[:booking_ref_code])
     if @booking
-      render :show
+      redirect_to booking_path(@booking.id)
     else
-      redirect_to :back, notice: "Booking not found"
+      redirect_to search_booking_path, notice: "Booking not found"
     end
+  end
+
+  def search
   end
 
   private
@@ -66,19 +68,5 @@ class BookingsController < ApplicationController
 
   def set_booking
     @booking = Booking.find(params[:id])
-  end
-
-  def verify_passenger_info
-    if booking_params["passengers_attributes"].nil?
-      redirect_to :back, notice: "Enter all Fields"
-    end
-
-  end
-
-  def create_booking
-    @booking = Booking.new(session[:info]["booking"])
-    @booking.booking_ref_code = params[:token]
-    @booking.user_id = current_user.id if current_user
-    redirect_to booking_path(@booking), notice: "payment successful." if @booking.save
   end
 end

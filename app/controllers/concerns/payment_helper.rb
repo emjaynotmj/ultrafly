@@ -28,4 +28,13 @@ module PaymentHelper
     mail_user(@booking)
     session.delete(:info)
   end
+
+  def create_booking
+    @booking = Booking.new(session[:info]["booking"])
+    @booking.booking_ref_code = params[:token]
+    @booking.user_id = current_user.id if current_user
+    redirect_to(booking_path(@booking), notice: "payment successful") if @booking.save
+  end
+
+  private :payment, :instantiate_payment_service, :create_booking
 end

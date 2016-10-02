@@ -8,6 +8,5 @@ class Booking < ActiveRecord::Base
   validates :total_price, presence: true
 
   accepts_nested_attributes_for :passengers,
-                                reject_if: :all_blank,
                                 allow_destroy: true
 end
