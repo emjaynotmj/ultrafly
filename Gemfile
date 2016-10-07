@@ -53,6 +53,8 @@ gem "paypal-express", github: "andela-ajamiu/paypal-express"
 
 gem "figaro", "~> 1.1", ">= 1.1.1"
 
+gem 'bootstrap-datepicker-rails', '~> 1.6', '>= 1.6.4.1'
+
 group :development, :test do
   # Call "byebug" anywhere in the code to stop execution and get a debugger console
   gem "byebug", "~> 9.0", ">= 9.0.5"
@@ -80,8 +82,6 @@ group :development, :test do
   gem "simplecov", "~> 0.12.0", require: false
 
   gem "selenium-webdriver", "~> 2.53", ">= 2.53.4"
-
-  gem 'chromedriver-helper', '~> 1.0'
 end
 
 group :development do

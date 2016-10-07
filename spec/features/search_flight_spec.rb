@@ -15,7 +15,7 @@ RSpec.feature "Search Flight" do
       visit root_path
       select @flight.departure_airport.name, from: "from"
       select @flight.departure_airport.name, from: "to"
-      fill_in "date-picker", with: DateTime.now.strftime("%d/%m/%Y")
+      fill_in "departure_date", with: DateTime.now.strftime("%Y/%m/%d")
       select "2", from: "number_of_passengers"
       click_button "Search Flights"
       expect(page).to have_content "Departure and Arrival Airport cannot be the same"
@@ -25,10 +25,9 @@ RSpec.feature "Search Flight" do
       visit root_path
       select @flight.departure_airport.name, from: "from"
       select @flight.arrival_airport.name, from: "to"
-      fill_in "date-picker", with: Time.zone.tomorrow.tomorrow.strftime("%d/%m/%Y")
+      fill_in "departure_date", with: Time.zone.tomorrow.tomorrow.strftime("%Y/%m/%d")
       select "2", from: "number_of_passengers"
       click_button "Search Flights"
-      # binding.pry
       expect(page).to have_content "No Flights found"
       expect(page).not_to have_content "Search results for flights from"
     end
@@ -37,10 +36,9 @@ RSpec.feature "Search Flight" do
       visit root_path
       select @flight.departure_airport.name, from: "from"
       select @flight.arrival_airport.name, from: "to"
-      fill_in "date-picker", with: DateTime.now.strftime("%d/%m/%Y")
+      fill_in "departure_date", with: DateTime.now.strftime("%Y/%m/%d")
       select "10", from: "number_of_passengers"
       click_button "Search Flights"
-      # binding.pry
       expect(page).to have_content "No Flights found"
       expect(page).not_to have_content "Search results for flights from"
     end
@@ -49,10 +47,9 @@ RSpec.feature "Search Flight" do
       visit root_path
       select @flight.departure_airport.name, from: "from"
       select @flight.arrival_airport.name, from: "to"
-      fill_in "date-picker", with: Time.zone.now.strftime("%d/%m/%Y")
+      fill_in "departure_date", with: Time.zone.now.strftime("%Y/%m/%d")
       select "2", from: "number_of_passengers"
       click_button "Search Flights"
-      # binding.pry
       expect(page).to have_content "Search results for flights from"
       expect(page).not_to have_content "No Flights found"
     end
@@ -69,7 +66,7 @@ RSpec.feature "Search Flight" do
       fill_in("passenger_email", with: "emjaynoni@yahoo.com")
       click_on "Book Flight"
       # sleep 5
-      # expect(page).to have_content "Welcome to the new PayPal checkout"
+      # expect(page).to have_content "PayPal"
     end
   end
 end

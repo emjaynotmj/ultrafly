@@ -13,13 +13,15 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require jquery_ujs
+//= require bootstrap-datepicker
 //= require toastr
 //= require cocoon
 //= require turbolinks
 //= require_tree .
 
-// $('#date-picker').datepicker();
-// $('#date-picker').datepicker({
-//     format: 'dd-mm-yyyy',
-//     autoclose: true
-// });
+$(document).ready(function(){
+  $(".datepicker").datepicker({
+    format: "yyyy-mm-dd",
+    autoclose: true
+  });
+});

@@ -11,7 +11,6 @@ Rails.application.routes.draw do
 
   get "bookings/search" => "bookings#search", as: :search_booking
   get "bookings/search_result" => "bookings#search_result", as: :search_result
-
   get "bookings" => "bookings#index", as: :bookings
   post "bookings" => "bookings#create"
   get "bookings/new" => "bookings#new", as: :new_booking
