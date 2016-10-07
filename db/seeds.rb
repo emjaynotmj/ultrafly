@@ -1,5 +1,7 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
+# This file should contain all the record creation
+# needed to seed the database with its default values.
+# The data can then be loaded with the rake db:seed
+# (or created alongside the db with db:setup).
 
 airports = [
   { name: "Nnamdi Azikwe International Airport, Abuja", state: "Abuja" },
@@ -18,7 +20,24 @@ airports = [
   { name: "Yola Airport, Yola", state: "Yola" }
 ]
 
-airlines = ["Arik Air", "Dana Air", "Andela Air", "Sosoliso Air", "Nigerian Airways", "Aero Contractors", "Kuvokiland Airlines", "Emjay Air", "Bukky Air", "Comet Aviation", "Galaxy Skylines", "Workdey Air", "K-S Air", "Arnold Air", "Edo Airways", "Night Crawlers", "TIA Air", "Peak Flyers"]
+airlines = ["Arik Air",
+            "Dana Air",
+            "Andela Air",
+            "Sosoliso Air",
+            "Nigerian Airways",
+            "Aero Contractors",
+            "Kuvokiland Airlines",
+            "Emjay Air",
+            "Bukky Air",
+            "Comet Aviation",
+            "Galaxy Skylines",
+            "Workdey Air",
+            "K-S Air",
+            "Arnold Air",
+            "Edo Airways",
+            "Night Crawlers",
+            "TIA Air",
+            "Peak Flyers"]
 
 airports.each do |airport|
   Airport.create(airport)
@@ -31,7 +50,8 @@ end
   flight.flight_code = "UF" + Faker::Number.between(100, 500).to_s
   flight.airline_name = airlines.sample
   flight.departure_airport_id = Airport.order("RANDOM()").first.id
-  flight.arrival_airport_id = Airport.order("RANDOM()").where.not(id: flight.departure_airport_id).first.id
+  flight.arrival_airport_id = Airport.order("RANDOM()").where.
+                              not(id: flight.departure_airport_id).first.id
   flight.departure_date = date
   flight.arrival_date = date + forward_rand.hour
   flight.price = Faker::Commerce.price

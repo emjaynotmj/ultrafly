@@ -17,3 +17,9 @@
 //= require cocoon
 //= require turbolinks
 //= require_tree .
+
+// $('#date-picker').datepicker();
+// $('#date-picker').datepicker({
+//     format: 'dd-mm-yyyy',
+//     autoclose: true
+// });

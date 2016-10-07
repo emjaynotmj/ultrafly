@@ -6,9 +6,8 @@
   <div class="panel-body">
     <%= form_for(@booking) do |f| %>
 
+      <%= f.hidden_field :flight_id, { value: params['flight_id'] } %>
       <%= f.hidden_field :total_price, { value: "#{@selected_flight.price}", class: "cost_tracker" } %>
-
-      <input type="hidden" name="booking[flight_id]" value= "<%= params['flight_id'] %>" />
 
       <%= f.fields_for :passengers do |passenger| %>
         <%= render 'passenger_fields', :f => passenger %>

@@ -1,19 +1,18 @@
-module PaymentHelper
+class PaymentsController < ApplicationController
   def payment
     payment_service = instantiate_payment_service
     response = payment_service.make_payment
-    params[:token] = response.token
-    session[:info] = params
+    session[:info]["token"] = response.token
     redirect_to response.redirect_uri
   end
 
   def instantiate_payment_service
-    selected_flight = Flight.find(params[:booking][:flight_id])
+    selected_flight = Flight.find(params[:flight_id])
     PaymentService.new(
       selected_flight: selected_flight,
       validate_url: payment_success_url,
       contact_url: root_url,
-      total_cost: params[:booking][:total_price].to_i
+      total_cost: session[:info]["booking"]["total_price"].to_i
     )
   end
 
@@ -25,7 +24,7 @@ module PaymentHelper
       @booking = Booking.find(session[:info]["id"])
       redirect_to booking_path(@booking), notice: "Your update was successful."
     end
-    mail_user(@booking)
+    UltraMailer.mail_user(@booking, current_user)
     session.delete(:info)
   end
 
@@ -33,8 +32,8 @@ module PaymentHelper
     @booking = Booking.new(session[:info]["booking"])
     @booking.booking_ref_code = params[:token]
     @booking.user_id = current_user.id if current_user
-    redirect_to(booking_path(@booking), notice: "payment successful") if @booking.save
+    redirect_to(booking_path(@booking), notice: "Payment successful") if @booking.save
   end
 
-  private :payment, :instantiate_payment_service, :create_booking
+  private :instantiate_payment_service, :create_booking
 end

@@ -79,7 +79,9 @@ group :development, :test do
 
   gem "simplecov", "~> 0.12.0", require: false
 
-  gem 'selenium-webdriver', '~> 2.53', '>= 2.53.4'
+  gem "selenium-webdriver", "~> 2.53", ">= 2.53.4"
+
+  gem 'chromedriver-helper', '~> 1.0'
 end
 
 group :development do

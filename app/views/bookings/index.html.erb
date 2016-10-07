@@ -21,13 +21,12 @@
             <tbody>
               <% @bookings.each do |booking| %>
                 <% if booking.user_id == current_user.id %>
-                  <% flight = Flight.find(booking.flight_id) %>
                   <tr>
                   <td><%= booking.booking_ref_code %></td>
-                  <td><%= flight.airline_name %></td>
-                  <td><%= flight.departure_airport.name %></td>
-                  <td><%= flight.arrival_airport.name %></td>
-                  <td><%= flight.departure_date.strftime("%d - %m - %Y") %></td>
+                  <td><%= booking.flight.airline_name %></td>
+                  <td><%= booking.flight.departure_airport.name %></td>
+                  <td><%= booking.flight.arrival_airport.name %></td>
+                  <td><%= booking.flight.departure_date.strftime("%d - %m - %Y") %></td>
                   <td><%= link_to content_tag(:span, "", class: "glyphicon glyphicon-search", title: "View"), booking %></td>
                   <td><%= link_to content_tag(:span, "", class: "glyphicon glyphicon-edit", title: "Edit"), edit_booking_path(booking) %></td>
                   <td><%= link_to content_tag(:span, "", class: "glyphicon glyphicon-trash", title: "Delete"), booking, method: :delete, data: { confirm: 'Are you sure?' } %></td>

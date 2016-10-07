@@ -6,23 +6,23 @@ RSpec.describe Flight, type: :model do
     @flights[3] = create(:flight, :departed)
   end
 
-      let(:valid_search_params) do
-        {
-          from: @flights[0].departure_airport_id,
-          to: @flights[0].arrival_airport_id,
-          departure_date: @flights[0].departure_date,
-          number_of_passengers: 2
-        }
-      end
+  let(:valid_search_params) do
+    {
+      from: @flights[0].departure_airport_id,
+      to: @flights[0].arrival_airport_id,
+      departure_date: @flights[0].departure_date,
+      number_of_passengers: 2
+    }
+  end
 
-      let(:invalid_search_params) do
-        {
-          from: @flights[0].departure_airport_id,
-          to: @flights[0].arrival_airport_id,
-          departure_date: @flights[0].departure_date,
-          number_of_passengers: 100
-        }
-      end
+  let(:invalid_search_params) do
+    {
+      from: @flights[0].departure_airport_id,
+      to: @flights[0].arrival_airport_id,
+      departure_date: @flights[0].departure_date,
+      number_of_passengers: 100
+    }
+  end
 
   context "Association #A flight" do
     it "should belong to a arrival airport" do

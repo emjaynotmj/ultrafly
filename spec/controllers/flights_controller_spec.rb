@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe FlightsController do
   before(:all) do
-    @flights = build_list(:flight, 3)
+    @flights = create_list(:flight, 3)
   end
   let(:valid_search_params) do
     {
@@ -15,12 +15,13 @@ RSpec.describe FlightsController do
 
   context "POST #search" do
     it "result should not be empty" do
-      post :search, params: { search_params: valid_search_params }, format: :js
+      xhr :post, :search, valid_search_params
+      # post :search, valid_search_params, :format => 'js'
       expect(assigns(@found_flights)).not_to be_empty
     end
 
     it "render the proper template" do
-      post :search, search_params: valid_search_params, format: :js
+      xhr :post, :search, valid_search_params
       expect(response).to render_template("search")
     end
   end

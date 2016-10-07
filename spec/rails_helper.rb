@@ -2,14 +2,14 @@
 ENV["RAILS_ENV"] ||= "test"
 require File.expand_path("../../config/environment", __FILE__)
 # Prevent database truncation if the environment is production
-abort("The Rails environment is running in production mode!") if Rails.env.production?
+abort("The Rails env is running in production mode!") if Rails.env.production?
 require "spec_helper"
 require "rspec/rails"
 require "capybara/rails"
 require "capybara/rspec"
 require "database_cleaner"
 require "capybara/poltergeist"
-# require "selenium-webdriver"
+require "selenium-webdriver"
 require "simplecov"
 require "coveralls"
 Coveralls.wear!
@@ -89,12 +89,15 @@ end
 #   Capybara::Poltergeist::Driver.new(app, options)
 # end
 
-# Capybara.javascript_driver = :selenium
+Capybara.javascript_driver = :selenium
 # Capybara.register_driver :selenium do |app|
 #   Capybara::Selenium::Driver.new(app, js_errors: false, inspector: true,
 #                                          timeout: 60,
 #                                          phantomjs: Phantomjs.path)
 # end
+Capybara.register_driver :selenium do |app|
+  Capybara::Selenium::Driver.new(app, :browser => :chrome)
+end
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
