@@ -1,10 +1,12 @@
 AllCops:
   Exclude:
-    - "vendor/**/*"
-    - "db/schema.rb"
-    - "bin/*"
-    - "config/environments/*"
     - "app/assets/*"
+    - "bin/*"
+    - "config/**/*"
+    - "db/**/*"
+    - "vendor/**/*"
+    - "spec/**/*"
+    - "*"
   UseCache: false
   TargetRubyVersion: 2.2
 Style/CollectionMethods:

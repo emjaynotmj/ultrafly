@@ -28,7 +28,9 @@ class BookingsController < ApplicationController
     @booking = Booking.new(session[:info]["booking"])
     @booking.booking_ref_code = session[:info]["token"]
     @booking.user_id = current_user.id if current_user
-    redirect_to(booking_path(@booking), notice: "Payment successful") if @booking.save
+    if @booking.save
+      redirect_to(booking_path(@booking), notice: "Payment successful")
+    end
     UltraMailer.mail_user(@booking, current_user)
     session.delete(:info)
   end

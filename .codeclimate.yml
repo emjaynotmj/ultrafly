@@ -5,6 +5,3 @@ engines:
 ratings:
    paths:
    - "app/**/*"
-   - "lib/**/*"
-   - "**.rb"
-   - "**.go"
