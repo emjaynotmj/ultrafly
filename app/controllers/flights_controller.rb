@@ -7,9 +7,9 @@ class FlightsController < ApplicationController
     @flights = Flight.search(search_params)
   end
 
-  private
-
   def search_params
     params.permit(:from, :to, :departure_date, :number_of_passengers)
   end
+
+  private :search_params
 end

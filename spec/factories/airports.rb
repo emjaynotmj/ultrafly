@@ -1,20 +1,6 @@
 FactoryGirl.define do
-  # names = [
-  #   "Nnamdi Azikwe International Airport, Abuja",
-  #   "Akanu Ibiam International Airport, Enugu",
-  #   "Alakia Airport, Ibadan"
-  # ]
-
-  # sequence(:name) do |name|
-  #   names[name - 1]
-  # end
-
-  # factory :airport do
-  #   name
-  # end
   factory :airport do
-    name { Faker::Space.agency }
-    state { Faker::Address.state }
-    # flight
+    sequence(:name, 1) { |n| Faker::Space.agency + n.to_s }
+    sequence(:state, 1) { |n| Faker::Address.state + n.to_s }
   end
 end

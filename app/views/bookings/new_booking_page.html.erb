@@ -7,7 +7,6 @@
           <div class="panel-heading">
             <h3 class="panel-title">Flight Information</h3>
           </div>
-          <% @selected_flight = Flight.find(params[:flight_id]) %>
           <div class="panel-body">
             <p>Flight Code: <strong><%= @selected_flight.flight_code %></strong></p>
             <p>Airline: <strong><%= @selected_flight.airline_name %></strong></p>

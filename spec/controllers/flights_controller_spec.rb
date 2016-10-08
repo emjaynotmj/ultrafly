@@ -15,12 +15,12 @@ RSpec.describe FlightsController do
 
   context "POST #search" do
     it "result should not be empty" do
-      post :search, search_params: valid_search_params, format: :js
+      xhr :post, :search, valid_search_params
       expect(assigns(@found_flights)).not_to be_empty
     end
 
     it "render the proper template" do
-      post :search, search_params: valid_search_params, format: :js
+      xhr :post, :search, valid_search_params
       expect(response).to render_template("search")
     end
   end

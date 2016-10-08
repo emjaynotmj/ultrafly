@@ -20,6 +20,8 @@ function validateDepartsArrives(){
 
 function validateSuppliedDate(){
   var suppliedDate = $('#date-picker').val();
+  console.log(suppliedDate)
+  console.log(new Date(suppliedDate));
   if (suppliedDate !== ""){
     var timeAllowance = 1000 * 60 * 60 * 23.99
     var presentTimeStamp = new Date().getTime();

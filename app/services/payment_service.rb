@@ -12,8 +12,6 @@ class PaymentService
     request_paypal_payment(request, payment_request)
   end
 
-  private
-
   def paypal_options
     {
       no_shipping: true,
@@ -50,4 +48,9 @@ class PaymentService
       paypal_options
     )
   end
+
+  private :paypal_options,
+          :paypal_request_params,
+          :payment_request_params,
+          :request_paypal_payment
 end

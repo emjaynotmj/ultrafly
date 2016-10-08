@@ -21,7 +21,7 @@ class Flight < ActiveRecord::Base
     sql_query = "departure_date >= ? and available_seats > ?"
     flights = where(
       sql_query,
-      search_params[:departure_date],
+      search_params[:departure_date].to_datetime,
       search_params[:number_of_passengers].to_i
     )
     flights.sort_by_departure_date.select do |flight|

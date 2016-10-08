@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.feature "User Registration" do
-  scenario "a guest visitor should be able to register" do
+  scenario "a guest visitor should be able to register", js: true do
     visit root_path
     click_link "Sign Up"
     fill_in "user_email", with: "emjaynoni@yahoo.com"
