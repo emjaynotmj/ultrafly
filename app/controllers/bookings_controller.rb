@@ -9,7 +9,7 @@ class BookingsController < ApplicationController
     :search_result
   ]
 
-  def new
+  def new_booking_page
     session.delete(:info)
     @selected_flight = Flight.find(params[:flight_id])
     @booking = Booking.new
@@ -17,11 +17,25 @@ class BookingsController < ApplicationController
     number_of_passengers.times { @booking.passengers.build }
   end
 
-  def create
+  def new_booking_details
     flight_id = params[:booking][:flight_id]
     session[:info] = { payment_type: "new_booking" }
     session[:info][:booking] = booking_params
     redirect_to payment_path(flight_id)
+  end
+
+  def create_booking
+    @booking = Booking.new(session[:info]["booking"])
+    @booking.booking_ref_code = session[:info]["token"]
+    @booking.user_id = current_user.id if current_user
+    redirect_to(booking_path(@booking), notice: "Payment successful") if @booking.save
+    UltraMailer.mail_user(@booking, current_user)
+    session.delete(:info)
+  end
+
+  def show
+    @selected_flight = @booking.flight
+    @passengers = Passenger.where(booking_id: @booking.id)
   end
 
   def index
@@ -30,11 +44,6 @@ class BookingsController < ApplicationController
 
   def edit
     @selected_flight = @booking.flight
-  end
-
-  def show
-    @selected_flight = @booking.flight
-    @passengers = Passenger.where(booking_id: @booking.id)
   end
 
   def update
@@ -53,6 +62,9 @@ class BookingsController < ApplicationController
     redirect_to bookings_path, notice: "Booking cancelled" if @booking.destroy
   end
 
+  def search
+  end
+
   def search_result
     @booking = Booking.find_by(booking_ref_code: params[:booking_ref_code])
     if @booking
@@ -60,9 +72,6 @@ class BookingsController < ApplicationController
     else
       redirect_to search_booking_path, notice: "Booking not found"
     end
-  end
-
-  def search
   end
 
   def booking_params

@@ -1,4 +1,4 @@
-<%= form_tag({controller: 'bookings', action: 'new'}, method: 'get') do %>
+<%= form_tag({controller: 'bookings', action: 'new_booking_page'}, method: 'get') do %>
 <input name="number_of_passengers" type="hidden" value= <%= params[:number_of_passengers] %> />
   <% @flights.each do |flight| %>
     <li class="list-group-item flight-list">

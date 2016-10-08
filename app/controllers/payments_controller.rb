@@ -19,21 +19,14 @@ class PaymentsController < ApplicationController
   def payment_success
     if (session[:info]["token"] == params[:token]) &&
        (session[:info]["payment_type"] == "new_booking")
-      create_booking
+      redirect_to create_booking_path
     else
       @booking = Booking.find(session[:info]["id"])
+      UltraMailer.mail_user(@booking, current_user)
+      session.delete(:info)
       redirect_to booking_path(@booking), notice: "Your update was successful."
     end
-    UltraMailer.mail_user(@booking, current_user)
-    session.delete(:info)
   end
 
-  def create_booking
-    @booking = Booking.new(session[:info]["booking"])
-    @booking.booking_ref_code = params[:token]
-    @booking.user_id = current_user.id if current_user
-    redirect_to(booking_path(@booking), notice: "Payment successful") if @booking.save
-  end
-
-  private :instantiate_payment_service, :create_booking
+  private :instantiate_payment_service
 end
