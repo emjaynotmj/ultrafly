@@ -1,21 +1,9 @@
 require "rails_helper"
+include ControllerHelpers::PaymentsHelper
 
 RSpec.describe PaymentsController do
   before(:all) do
     @booking = create(:booking)
-  end
-
-  let(:new_booking_payment_details) do
-    {
-      token: "123456789",
-      payment_type: "new_booking"
-    }
-  end
-
-  let(:update_booking_payment_details) do
-    {
-      "id" => @booking.id
-    }
   end
 
   context "GET #payment_success" do

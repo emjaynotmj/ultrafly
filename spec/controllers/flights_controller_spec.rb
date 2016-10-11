@@ -1,16 +1,9 @@
 require "rails_helper"
+include ControllerHelpers::FlightsHelper
 
 RSpec.describe FlightsController do
   before(:all) do
     @flights = create_list(:flight, 3)
-  end
-  let(:valid_search_params) do
-    {
-      from: @flights.second.departure_airport_id,
-      to: @flights.second.arrival_airport_id,
-      number_of_passengers: 2,
-      departure_date: @flights.second.departure_date
-    }
   end
 
   context "POST #search" do

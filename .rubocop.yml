@@ -5,7 +5,6 @@ AllCops:
     - "config/**/*"
     - "db/**/*"
     - "vendor/**/*"
-    - "spec/**/*"
     - "*"
   UseCache: false
   TargetRubyVersion: 2.2

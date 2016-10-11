@@ -1,27 +1,10 @@
 require "rails_helper"
+include ModelHelpers::FlightHelper
 
 RSpec.describe Flight, type: :model do
   before(:all) do
     @flights = create_list(:flight, 3)
     @flights[3] = create(:flight, :departed)
-  end
-
-  let(:valid_search_params) do
-    {
-      from: @flights[0].departure_airport_id,
-      to: @flights[0].arrival_airport_id,
-      departure_date: @flights[0].departure_date,
-      number_of_passengers: 2
-    }
-  end
-
-  let(:invalid_search_params) do
-    {
-      from: @flights[0].departure_airport_id,
-      to: @flights[0].arrival_airport_id,
-      departure_date: @flights[0].departure_date,
-      number_of_passengers: 100
-    }
   end
 
   context "Association #A flight" do
@@ -74,7 +57,8 @@ RSpec.describe Flight, type: :model do
 
   context "Class Methods #The Flight class method" do
     it ".available_flights should return the list of available flights" do
-      expect(Flight.available_flights).to include(@flights[0], @flights[1], @flights[2])
+      expect(Flight.available_flights).
+        to include(@flights[0], @flights[1], @flights[2])
     end
 
     it ".available_flights should return the list of available flights" do
@@ -85,7 +69,7 @@ RSpec.describe Flight, type: :model do
       expect(Flight.search(valid_search_params)).to include(@flights[0])
     end
 
-    it ".search should return the flight search results without the departed flight" do
+    it ".search should return the search results without the departed flight" do
       expect(Flight.search(valid_search_params)).not_to include(@flights[3])
     end
 
@@ -93,11 +77,12 @@ RSpec.describe Flight, type: :model do
       expect(Flight.search(invalid_search_params)).to be_empty
     end
 
-    it ".sort_by_departure_date should return flights sorted by departure_date in ascending order" do
-      expect(Flight.sort_by_departure_date).to eq([@flights[3], @flights[0], @flights[1], @flights[2]])
+    it ".sort_by_departure_date return flights sorted by departure_date" do
+      expect(Flight.sort_by_departure_date).
+        to eq([@flights[3], @flights[0], @flights[1], @flights[2]])
     end
 
-    it ".sort_by_departure_date should return flights sorted by departure_date in ascending order" do
+    it ".sort_by_departure_date should third flight as first" do
       expect(Flight.sort_by_departure_date.first).to eq(@flights[3])
     end
   end

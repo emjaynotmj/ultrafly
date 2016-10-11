@@ -1,43 +1,11 @@
 require "rails_helper"
+include ControllerHelpers::BookingsHelper
 
 RSpec.describe BookingsController do
   before(:all) do
     @flight = create(:flight)
     @user = create(:user)
     @bookings = create_list(:booking, 3)
-  end
-
-  let(:valid_booking_details) do
-    {
-      booking_ref_code: Faker::Code.asin,
-      total_price: Faker::Commerce.price,
-      flight_id: @flight.id,
-      user_id: @user.id,
-      passengers_attributes: [
-        {
-          name: Faker::Name.name,
-          email: Faker::Internet.email
-        }
-      ]
-    }
-  end
-
-  let(:create_booking_params) do
-    {
-      booking: {
-        flight_id: @flight.id,
-        total_price: 44,
-        passengers_attributes:
-          {
-            367_634_897 =>
-            {
-              name: Faker::Name.name,
-              email: Faker::Internet.email
-            }
-          }
-      },
-      token: Faker::Code.asin.to_s
-    }
   end
 
   describe "GET #new_booking_page" do
@@ -61,7 +29,7 @@ RSpec.describe BookingsController do
 
   describe "POST #new_booking_details" do
     it "should redirect user to payment page" do
-      post :new_booking_details, booking: valid_booking_details
+      post :new_booking_details, booking: VALID_BOOKING_DETAILS
       expect(controller).to respond_with(302)
       expect(:notice).to be_present
     end
@@ -73,7 +41,9 @@ RSpec.describe BookingsController do
           session[:info] = create_booking_params.deep_stringify_keys
     end
     it "should respond to expectations" do
-      expect(create_booking_action).to redirect_to(booking_path(assigns[:booking]))
+      expect(create_booking_action).
+        to redirect_to(booking_path(assigns[:booking]))
+
       expect(create_booking_action).to have_http_status(302)
     end
 
@@ -151,24 +121,24 @@ RSpec.describe BookingsController do
   describe "PUT #update" do
     it "should update the booking with valid parameters" do
       sign_in(@bookings.first.user)
-      valid_booking_details[:passengers_attributes] <<
+      VALID_BOOKING_DETAILS[:passengers_attributes] <<
         {
           name: Faker::Name.name,
           email: Faker::Internet.email
         }
-      put :update, id: @bookings.first, booking: valid_booking_details
+      put :update, id: @bookings.first, booking: VALID_BOOKING_DETAILS
       expect(controller).to respond_with(302)
       expect(:notice).to be_present
     end
 
     it "should redirect user with invalid booking parameters" do
       sign_in(@bookings.second.user)
-      valid_booking_details[:passengers_attributes] <<
+      VALID_BOOKING_DETAILS[:passengers_attributes] <<
         {
           name: nil,
           email: Faker::Internet.email
         }
-      put :update, id: @bookings.second, booking: valid_booking_details
+      put :update, id: @bookings.second, booking: VALID_BOOKING_DETAILS
       expect(response).to redirect_to(edit_booking_path)
     end
   end
