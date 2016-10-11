@@ -5,7 +5,7 @@ RSpec.feature "Search Flight" do
     @flight = create(:flight)
   end
 
-  describe "User search for flights" do
+  feature "User search for flights" do
     scenario "visits homepage" do
       visit root_path
       expect(page).to have_content "Online flight reservation just got better!"
@@ -56,7 +56,7 @@ RSpec.feature "Search Flight" do
     end
   end
 
-  describe "User books a flight" do
+  feature "User books a flight" do
     scenario "User Book a Flight", js: true do
       visit root_path
       click_link "All Flights"
@@ -66,8 +66,6 @@ RSpec.feature "Search Flight" do
       fill_in("passenger_name", with: "Emjay")
       fill_in("passenger_email", with: "emjaynoni@yahoo.com")
       click_on "Book Flight"
-      # sleep 5
-      # expect(page).to have_content "PayPal"
     end
   end
 end
