@@ -19,6 +19,8 @@ class UltraMailer < ApplicationMailer
 
   def booking_confirmed(email, booking)
     @booking = booking
+    @flight = Flight.find(@booking.flight_id)
+    @passengers = Passenger.where(booking_id: @booking.id)
     mail(to: email, subject: "Your booking has been confirmed")
   end
 end

@@ -1,15 +1,14 @@
 <div class="home-result">
   <div class="panel-body" align ="center">
-    <% unless @flights.empty? %>
-      <% first_flight = @flights.first %>
+    <% if @flights.empty? %>
+      <h4 class="text-info">No Flights found for the specified locations</h4>
+    <% else %>
       <h2 class="text-info"><small>Search results for flights from</small>
-        <%= first_flight.departure_airport.state %> <small>to</small> <%= first_flight.arrival_airport.state %>
+        <%= @flights.first.departure_airport.state %> <small>to</small> <%= @flights.first.arrival_airport.state %>
         <small>starting from</small> <%= DateTime.parse(params[:departure_date]).strftime("%b %d, %Y") %>
       </h2>
       <hr>
       <%= render 'flights/flights' %>
-    <% else %>
-      <h4 class="text-info">No Flights found for the specified locations</h4>
     <% end %>
     <br>
     <%= link_to 'All Flights', flights_path, class: "btn btn-primary pull-right"%>
