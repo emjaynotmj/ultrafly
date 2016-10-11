@@ -12,6 +12,7 @@ require "capybara/poltergeist"
 require "selenium-webdriver"
 require "simplecov"
 require "coveralls"
+
 Coveralls.wear!
 
 test_formatter = [
@@ -35,7 +36,7 @@ SimpleCov.start
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-# Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 # Checks for pending migration and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
@@ -56,11 +57,18 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with :truncation
   end
-
   config.after(:all) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with :truncation
   end
+
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::IntegrationHelpers, type: :mailer
+
+  # config.include ControllerHelpers::BookingsHelper, type: :controller
+  # config.include ControllerHelpers::FlightsHelper, type: :controller
+  # config.include ControllerHelpers::PaymentsHelper, type: :controller
+  # config.include ModelHelpers::FlightHelper, type: :model
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
@@ -105,9 +113,4 @@ Shoulda::Matchers.configure do |config|
     with.test_framework :rspec
     with.library :rails
   end
-end
-
-RSpec.configure do |config|
-  config.include Devise::Test::ControllerHelpers, type: :controller
-  config.include Devise::Test::IntegrationHelpers, type: :mailer
 end

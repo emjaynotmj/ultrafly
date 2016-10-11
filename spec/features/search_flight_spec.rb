@@ -18,14 +18,15 @@ RSpec.feature "Search Flight" do
       fill_in "departure_date", with: DateTime.now.strftime("%Y/%m/%d")
       select "2", from: "number_of_passengers"
       click_button "Search Flights"
-      expect(page).to have_content "Departure and Arrival Airport cannot be the same"
+      expect(page).to have_content "Departure and Arrival Airport cannot be the"
     end
 
     scenario "user searches for unavailable flight_date", js: true do
       visit root_path
       select @flight.departure_airport.name, from: "from"
       select @flight.arrival_airport.name, from: "to"
-      fill_in "departure_date", with: Time.zone.tomorrow.tomorrow.strftime("%Y/%m/%d")
+      fill_in "departure_date",
+              with: Time.zone.tomorrow.tomorrow.strftime("%Y/%m/%d")
       select "2", from: "number_of_passengers"
       click_button "Search Flights"
       expect(page).to have_content "No Flights found"
