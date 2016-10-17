@@ -1,55 +1,67 @@
 require "rails_helper"
 
 RSpec.describe Booking, type: :model do
-  before(:all) do
-    @booking = build(:booking)
+  subject { create(:booking) }
+
+  describe "#belongs_to" do
+    it { is_expected.to belong_to(:flight) }
+    it { is_expected.to belong_to(:user) }
   end
 
-  context "New Booking object" do
-    it "should be valid" do
-      expect(@booking).to be_valid
-    end
-
-    it "should belong to a flight" do
-      expect(@booking).to respond_to(:flight)
-    end
-
-    it "should belong to a user" do
-      expect(@booking).to respond_to(:user)
-    end
-
-    it "should have a total price" do
-      expect(@booking).to respond_to(:total_price)
-    end
-
-    it "should have a reference code" do
-      expect(@booking).to respond_to(:booking_ref_code)
-    end
-
-    it "should have many passengers" do
-      expect(@booking).to respond_to(:passengers)
-    end
-
-    it "should return the flight" do
-      expect(@booking.flight).to be_a(Flight)
-    end
+  describe "#has_many" do
+    it { is_expected.to have_many(:passengers) }
   end
 
-  context "Associations" do
-    it "should belong to flight" do
-      expect(@booking).to belong_to(:flight)
-    end
+  describe "#accepts_nested_attributes_for" do
+    it { is_expected.to accept_nested_attributes_for(:passengers) }
+  end
 
-    it "should belong to a user" do
-      expect(@booking).to belong_to(:user)
-    end
+  describe "#validates_presence_of" do
+    it { is_expected.to validate_presence_of(:booking_ref_code) }
+    it { is_expected.to validate_presence_of(:flight_id) }
+    it { is_expected.to validate_presence_of(:total_price) }
+  end
 
-    it "should have many passengers" do
-      expect(@booking).to have_many(:passengers)
-    end
+  context "When a user creates a booking with valid parameters" do
+    it { is_expected.to be_valid }
+    it(:flight) { is_expected.to be_valid }
+    it { is_expected.to be_persisted }
+    it(:flight) { is_expected.to be_persisted }
+    it { is_expected.to be_a(Booking) }
+    its(:flight) { is_expected.to be_a(Flight) }
+    its(:booking_ref_code) { is_expected.to eq(Booking.last.booking_ref_code) }
+    its(:flight_id) { is_expected.to eq(Booking.last.flight_id) }
+    its(:total_price) { is_expected.to eq(Booking.last.total_price) }
+    its("passengers.first.name") { is_expected.to eq(Passenger.first.name) }
+    its("passengers.first.email") { is_expected.to eq(Passenger.first.email) }
+  end
 
-    it "should accept nested passengers attributes" do
-      expect(@booking).to accept_nested_attributes_for(:passengers)
-    end
+  context "When a user creates a booking with missing required parameter(s)" do
+    subject { Booking.create(booking_ref_code: "ABCD1234", total_price: 45) }
+
+    it { is_expected.not_to be_valid }
+    it { is_expected.not_to be_persisted }
+    its(:flight_id) { is_expected.to be_nil }
+    its("passengers.first") { is_expected.to be_nil }
+    its("errors.full_messages") { should include("Flight can't be blank") }
+  end
+
+  context "When a registered user creates a valid booking" do
+    subject { create(:booking, :registered_user_booking) }
+
+    its(:user) { is_expected.to be_valid }
+    its(:user) { is_expected.to be_persisted }
+    its(:user) { is_expected.to be_a(User) }
+    its("user.email") { is_expected.to eq(User.last.email) }
+    it { is_expected.to be_valid }
+  end
+
+  context "When an anonymous user creates a valid booking" do
+    subject { create(:booking, :anonymous_booking) }
+
+    its(:user) { is_expected.to be_nil }
+    its(:user) { is_expected.not_to be_present }
+    its(:user) { is_expected.not_to be_a(User) }
+    it { is_expected.to be_valid }
   end
 end
