@@ -14,10 +14,19 @@ module ControllerHelpers
         ]
       }.freeze
 
+    INVALID_BOOKING_DETAILS =
+      {
+        booking_ref_code: Faker::Code.asin,
+        total_price: Faker::Commerce.price,
+        flight_id: 1,
+        user_id: 1,
+        passengers_attributes: []
+      }.freeze
+
     def create_booking_params
       {
         booking: {
-          flight_id: @flight.id,
+          flight_id: 1,
           total_price: 44,
           passengers_attributes:
             {

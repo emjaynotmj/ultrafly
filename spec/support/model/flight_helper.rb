@@ -1,19 +1,19 @@
 module ModelHelpers
   module FlightHelper
-    def valid_search_params
+    def valid_params
       {
-        from: @flights[0].departure_airport_id,
-        to: @flights[0].arrival_airport_id,
-        departure_date: @flights[0].departure_date,
+        from: flights.first.departure_airport_id,
+        to: flights.first.arrival_airport_id,
+        departure_date: flights.first.departure_date,
         number_of_passengers: 2
       }
     end
 
-    def invalid_search_params
+    def invalid_params
       {
-        from: @flights[0].departure_airport_id,
-        to: @flights[0].arrival_airport_id,
-        departure_date: @flights[0].departure_date,
+        from: flights.first.departure_airport_id,
+        to: flights.first.arrival_airport_id,
+        departure_date: flights.first.departure_date,
         number_of_passengers: 100
       }
     end

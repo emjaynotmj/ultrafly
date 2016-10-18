@@ -2,88 +2,50 @@ require "rails_helper"
 include ModelHelpers::FlightHelper
 
 RSpec.describe Flight, type: :model do
-  before(:all) do
-    @flights = create_list(:flight, 3)
-    @flights[3] = create(:flight, :departed)
+  subject { create(:flight) }
+  let!(:flights) { create_list(:flight, 3) }
+  let!(:departed_flight) { create(:flight, :departed) }
+
+  describe "associations" do
+    it { is_expected.to belong_to(:arrival_airport) }
+    it { is_expected.to belong_to(:departure_airport) }
+    it { is_expected.to have_many(:bookings) }
   end
 
-  context "Association #A flight" do
-    it "should belong to a arrival airport" do
-      expect(@flights[0]).to belong_to(:arrival_airport)
-    end
-
-    it "should belong to a departure airport" do
-      expect(@flights[0]).to belong_to(:departure_airport)
-    end
-
-    it "should have many bookings" do
-      expect(@flights[0]).to have_many(:bookings)
-    end
+  describe "validations" do
+    it { is_expected.to validate_presence_of(:airline_name) }
+    it { is_expected.to validate_presence_of(:arrival_airport_id) }
+    it { is_expected.to validate_presence_of(:arrival_date) }
+    it { is_expected.to validate_presence_of(:available_seats) }
+    it { is_expected.to validate_presence_of(:departure_airport_id) }
+    it { is_expected.to validate_presence_of(:departure_date) }
+    it { is_expected.to validate_presence_of(:flight_code) }
+    it { is_expected.to validate_presence_of(:price) }
   end
 
-  context "Attributes #A flight" do
-    it "should have an airline" do
-      expect(@flights[0]).to respond_to(:airline_name)
+  describe ".available_flights" do
+    it { expect(Flight.available_flights.count).to eq(3) }
+    it { expect(Flight.available_flights).to include(flights.first) }
+    it { expect(Flight.available_flights).not_to include(departed_flight) }
+  end
+
+  describe ".search" do
+    context "When search params matches one or more available flights" do
+      it { expect(Flight.search(valid_params).count).to eq(1) }
+      it { expect(Flight.search(valid_params)).to include(flights.first) }
+      it { expect(Flight.search(valid_params)).not_to include(departed_flight) }
     end
 
-    it "should have an arrival airport" do
-      expect(@flights[0]).to respond_to(:arrival_airport)
-    end
-
-    it "should have an arrival date" do
-      expect(@flights[0]).to respond_to(:arrival_date)
-    end
-
-    it "should have a number of available seats" do
-      expect(@flights[0]).to respond_to(:available_seats)
-    end
-
-    it "should have a departure airport" do
-      expect(@flights[0]).to respond_to(:departure_airport)
-    end
-
-    it "should have a departure date" do
-      expect(@flights[0]).to respond_to(:departure_date)
-    end
-
-    it "should have a code" do
-      expect(@flights[0]).to respond_to(:flight_code)
-    end
-
-    it "should have a price" do
-      expect(@flights[0]).to respond_to(:price)
+    context "When search params matches no available flight" do
+      it { expect(Flight.search(invalid_params).count).to eq(0) }
+      it { expect(Flight.search(invalid_params)).not_to include(flights.first) }
+      it { expect(Flight.search(invalid_params)).to be_empty }
     end
   end
 
-  context "Class Methods #The Flight class method" do
-    it ".available_flights should return the list of available flights" do
-      expect(Flight.available_flights).
-        to include(@flights[0], @flights[1], @flights[2])
-    end
-
-    it ".available_flights should return the list of available flights" do
-      expect(Flight.available_flights).to_not include(@flights[3])
-    end
-
-    it ".search should return the flight search results" do
-      expect(Flight.search(valid_search_params)).to include(@flights[0])
-    end
-
-    it ".search should return the search results without the departed flight" do
-      expect(Flight.search(valid_search_params)).not_to include(@flights[3])
-    end
-
-    it ".search should return no available flights" do
-      expect(Flight.search(invalid_search_params)).to be_empty
-    end
-
-    it ".sort_by_departure_date return flights sorted by departure_date" do
-      expect(Flight.sort_by_departure_date).
-        to eq([@flights[3], @flights[0], @flights[1], @flights[2]])
-    end
-
-    it ".sort_by_departure_date should third flight as first" do
-      expect(Flight.sort_by_departure_date.first).to eq(@flights[3])
-    end
+  describe ".sort_by_departure_date" do
+    it { expect(Flight.sort_by_departure_date.first).to eq(departed_flight) }
+    it { expect(Flight.sort_by_departure_date.fourth).to eq(flights.third) }
+    it { expect(Flight.sort_by_departure_date.count).to eq(4) }
   end
 end

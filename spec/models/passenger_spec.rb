@@ -1,23 +1,14 @@
 require "rails_helper"
 
 RSpec.describe Passenger, type: :model do
-  before(:all) do
-    @passenger = build(:passenger)
+  subject { create(:passenger) }
+
+  describe "associations" do
+    it { is_expected.to belong_to(:booking) }
   end
 
-  it "should have a valid factory" do
-    expect(@passenger).to be_valid
-  end
-
-  it "should have a name" do
-    expect(@passenger).to respond_to(:name)
-  end
-
-  it "should have a state" do
-    expect(@passenger).to respond_to(:email)
-  end
-
-  it "should belong to bookings" do
-    expect(@passenger).to belong_to(:booking)
+  describe "validations" do
+    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_presence_of(:email) }
   end
 end
