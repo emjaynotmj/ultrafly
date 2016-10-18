@@ -53,16 +53,17 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = false
   # config.render_views
-  config.before(:all) do
+  config.before(:each) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with :truncation
   end
-  config.after(:all) do
+  config.after(:each) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with :truncation
   end
 
   config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::IntegrationHelpers, type: :feature
   config.include Devise::Test::IntegrationHelpers, type: :mailer
 
   # config.include ControllerHelpers::BookingsHelper, type: :controller

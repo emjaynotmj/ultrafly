@@ -82,6 +82,8 @@ group :development, :test do
   gem "simplecov", "~> 0.12.0", require: false
 
   gem "selenium-webdriver", "~> 2.53", ">= 2.53.4"
+
+  gem "rspec-its", "~> 1.2"
 end
 
 group :development do
