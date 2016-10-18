@@ -1,9 +1,13 @@
 class PaymentsController < ApplicationController
   def payment
-    payment_service = instantiate_payment_service
-    response = payment_service.make_payment
-    session[:info]["token"] = response.token
-    redirect_to response.redirect_uri
+    if params[:flight_id] && session[:info]
+      payment_service = instantiate_payment_service
+      response = payment_service.make_payment
+      session[:info]["token"] = response.token
+      redirect_to(response.redirect_uri)
+    else
+      redirect_to root_path, alert: "Your Booking information is required"
+    end
   end
 
   def instantiate_payment_service

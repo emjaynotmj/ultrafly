@@ -10,34 +10,49 @@ class BookingsController < ApplicationController
   ]
 
   def new_booking_page
-    session.delete(:info)
-    @selected_flight = Flight.find(params[:flight_id])
-    @booking = Booking.new
-    number_of_passengers = params[:number_of_passengers].to_i
-    number_of_passengers.times { @booking.passengers.build }
+    if params[:flight_id]
+      session.delete(:info)
+      @selected_flight = Flight.find(params[:flight_id])
+      @booking = Booking.new
+      number_of_passengers = params[:number_of_passengers].to_i
+      number_of_passengers.times { @booking.passengers.build }
+    else
+      redirect_to flights_path, alert: "Please select a flight first"
+    end
   end
 
   def new_booking_details
-    flight_id = params[:booking][:flight_id]
-    session[:info] = { payment_type: "new_booking" }
-    session[:info][:booking] = booking_params
-    redirect_to payment_path(flight_id)
+    if params[:booking][:passengers_attributes].any?
+      flight_id = params[:booking][:flight_id]
+      session[:info] = { payment_type: "new_booking" }
+      session[:info][:booking] = booking_params
+      redirect_to payment_path(flight_id)
+    else
+      redirect_to flights_path, alert: "Please enter the passenger(s) info"
+    end
   end
 
   def create_booking
-    @booking = Booking.new(session[:info]["booking"])
-    @booking.booking_ref_code = session[:info]["token"]
-    @booking.user_id = current_user.id if current_user
-    if @booking.save
+    if session[:info]
+      @booking = Booking.new(session[:info]["booking"])
+      @booking.booking_ref_code = session[:info]["token"]
+      @booking.user_id = current_user.id if current_user
+      @booking.save
       redirect_to(booking_path(@booking), notice: "Payment successful")
+      UltraMailer.mail_user(@booking, current_user)
+      session.delete(:info)
+    else
+      redirect_to flights_path, alert: "Error creating your booking"
     end
-    UltraMailer.mail_user(@booking, current_user)
-    session.delete(:info)
   end
 
   def show
-    @selected_flight = @booking.flight
-    @passengers = Passenger.where(booking_id: @booking.id)
+    if @booking
+      @selected_flight = @booking.flight
+      @passengers = Passenger.where(booking_id: @booking.id)
+    else
+      redirect_to flights_path, alert: "Booking record not found"
+    end
   end
 
   def index
@@ -88,7 +103,7 @@ class BookingsController < ApplicationController
   end
 
   def set_booking
-    @booking = Booking.find(params[:id])
+    @booking = Booking.find_by_id(params[:id]) if params[:id]
   end
 
   private :booking_params, :set_booking

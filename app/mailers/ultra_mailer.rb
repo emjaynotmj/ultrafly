@@ -4,20 +4,20 @@ class UltraMailer < ApplicationMailer
   def self.mail_user(booking, current_user)
     users = Passenger.where(booking_id: booking.id)
     if current_user
-      send_mail(current_user.email, booking)
+      send_mail(booking, current_user.email)
       users.each do |user|
-        send_mail(user.email, booking) if user.email != current_user.email
+        send_mail(booking, user.email) if user.email != current_user.email
       end
     else
-      users.each { |user| send_mail(user.email, booking) }
+      users.each { |user| send_mail(booking, user.email) }
     end
   end
 
-  def self.send_mail(user, booking)
-    booking_confirmed(user, booking).deliver_now!
+  def self.send_mail(booking, user_email)
+    booking_confirmed(booking, user_email).deliver_now!
   end
 
-  def booking_confirmed(email, booking)
+  def booking_confirmed(booking, email)
     @booking = booking
     @flight = Flight.find(@booking.flight_id)
     @passengers = Passenger.where(booking_id: @booking.id)

@@ -2,183 +2,207 @@ require "rails_helper"
 include ControllerHelpers::BookingsHelper
 
 RSpec.describe BookingsController do
-  before(:all) do
-    @flight = create(:flight)
-    @user = create(:user)
-    @bookings = create_list(:booking, 3)
-  end
+  let!(:flight) { create(:flight) }
 
   describe "GET #new_booking_page" do
-    let(:new_booking_page_action) do
-      get :new_booking_page,
-          flight_id: @flight.id
-    end
-    it "should render the new template" do
-      expect(new_booking_page_action).to render_template(:new_booking_page)
+    context "when a user visits new booking page after selecting flight" do
+      subject { get :new_booking_page, flight_id: 1 }
+
+      it "renders new booking page" do
+        is_expected.to render_template(:new_booking_page)
+      end
     end
 
-    it "should respond with status 200" do
-      expect(new_booking_page_action).to have_http_status :ok
-    end
+    context "when a user visits new booking page without selecting flight" do
+      subject { get :new_booking_page }
 
-    it "should assign @booking to a new Booking object" do
-      get :new_booking_page, flight_id: @flight.id
-      expect(assigns[:booking]).to be_a_new(Booking)
+      it "redirects user to select a flight" do
+        is_expected.to redirect_to(flights_path)
+      end
     end
   end
 
   describe "POST #new_booking_details" do
-    it "should redirect user to payment page" do
-      post :new_booking_details, booking: VALID_BOOKING_DETAILS
-      expect(controller).to respond_with(302)
-      expect(:notice).to be_present
+    context "when the user enters at least one passenger's information" do
+      subject { post :new_booking_details, booking: VALID_BOOKING_DETAILS }
+
+      it "redirects user to payment path" do
+        should redirect_to payment_path(VALID_BOOKING_DETAILS[:flight_id])
+      end
+    end
+
+    context "when the user do not enter any passenger's information" do
+      subject { post :new_booking_details, booking: INVALID_BOOKING_DETAILS }
+
+      it "redirects user to select a flight" do
+        is_expected.to redirect_to(flights_path)
+      end
     end
   end
 
   describe "GET #create_booking" do
-    let(:create_booking_action) do
-      get :create_booking,
-          session[:info] = create_booking_params.deep_stringify_keys
-    end
-    it "should respond to expectations" do
-      expect(create_booking_action).
-        to redirect_to(booking_path(assigns[:booking]))
+    subject { get :create_booking }
 
-      expect(create_booking_action).to have_http_status(302)
-    end
+    context "when booking is successfully created" do
+      before { session[:info] = create_booking_params.deep_stringify_keys }
 
-    it "should increase the number of bookings by 1" do
-      expect { create_booking_action }.to change(Booking, :count).by(1)
-    end
+      it "redirects to the booking show page" do
+        is_expected.to redirect_to booking_path(assigns[:booking])
+      end
 
-    it "should create a booking record" do
-      get :create_booking,
-          session[:info] = create_booking_params.deep_stringify_keys
-      expect(assigns[:booking]).to be_persisted
+      it "increases bookings count by 1" do
+        expect { subject }.to change { Booking.count }.by(1)
+      end
+
+      it "sends mail to the passenger" do
+        expect { subject }.
+          to change { ActionMailer::Base.deliveries.count }.by(1)
+      end
     end
 
-    it "should increase ActionMailer::Base.deliveries by 1" do
-      expect { create_booking_action }.to change {
-        ActionMailer::Base.deliveries.count
-      }.by(1)
+    context "when booking is not created" do
+      it "redirects user to select a flight" do
+        is_expected.to redirect_to flights_path
+      end
     end
   end
 
   describe "GET #show" do
-    it "should show information for a particular booking" do
-      get :show, id: @bookings.first
-      expect(response).to have_http_status(200)
-      expect(response).to render_template(:show)
+    subject { get :show, id: 1 }
+
+    context "when booking record is found" do
+      before { create(:booking) }
+
+      it "renders the booking show page" do
+        is_expected.to render_template(:show)
+      end
+    end
+
+    context "when booking record is not found" do
+      it "redirects user to select a flight" do
+        is_expected.to redirect_to(flights_path)
+      end
     end
   end
 
   describe "GET #index" do
-    let(:index_action) { get :index }
-    it "should redirect anonymous user to login page" do
-      expect(index_action).to redirect_to(new_user_session_path)
-    end
+    let(:booking) { create(:booking, :registered_user_booking) }
+    subject { get :index }
 
-    it "should redirect with status code 302" do
-      expect(index_action).to have_http_status(302)
-    end
-    context "for a Signed-in User" do
-      let(:sign_in_action) { sign_in(@bookings.first.user) }
-      it "should return the list of bookings by a logged-in user" do
-        sign_in_action
-        expect(index_action).to render_template("index")
+    context "when a signed-in user visits the index page" do
+      before { sign_in(booking.user) }
+
+      it "renders the index page" do
+        is_expected.to render_template("index")
       end
+    end
 
-      it "should return bookings that belongs to the user" do
-        sign_in_action
-        get :index
-        expect(assigns[:bookings]).to include(@bookings.first)
+    context "when an anonymous user visits the index page" do
+      it "redirects user to login page" do
+        is_expected.to redirect_to(new_user_session_path)
       end
     end
   end
 
   describe "GET #edit" do
-    let(:edit_action) { get :edit, id: @bookings.first.id }
-    it "should redirect anonymous user to login page" do
-      expect(edit_action).to redirect_to(new_user_session_path)
+    let(:booking) { create(:booking, :registered_user_booking) }
+    subject { get :edit, id: booking.id }
+
+    context "when a signed-in user visits the edit-booking page" do
+      before { sign_in(booking.user) }
+
+      it "renders the booking edit page" do
+        is_expected.to render_template(:edit)
+      end
     end
 
-    it "should redirect with status code 302" do
-      expect(edit_action).to have_http_status(302)
-    end
-
-    it "should allow the user to access edit page" do
-      sign_in(@bookings.first.user)
-      expect(edit_action).to render_template(:edit)
-    end
-
-    it "should assign the booking to a variable" do
-      sign_in(@bookings.first.user)
-      get :edit, id: @bookings.first.id
-      expect(assigns(:booking)).to eq(@bookings.first)
+    context "when an anonymous user visits the edit-booking page" do
+      it "redirects user to login page" do
+        is_expected.to redirect_to(new_user_session_path)
+      end
     end
   end
 
   describe "PUT #update" do
-    it "should update the booking with valid parameters" do
-      sign_in(@bookings.first.user)
-      VALID_BOOKING_DETAILS[:passengers_attributes] <<
-        {
-          name: Faker::Name.name,
-          email: Faker::Internet.email
-        }
-      put :update, id: @bookings.first, booking: VALID_BOOKING_DETAILS
-      expect(controller).to respond_with(302)
-      expect(:notice).to be_present
+    let(:booking) { create(:booking, :registered_user_booking) }
+    before { sign_in(booking.user) }
+    subject { put :update, id: booking, booking: VALID_BOOKING_DETAILS }
+
+    context "when the user enters valid update details" do
+      before do
+        VALID_BOOKING_DETAILS[:passengers_attributes] <<
+          {
+            name: Faker::Name.name,
+            email: Faker::Internet.email
+          }
+      end
+
+      it "redirects to payment page" do
+        is_expected.to redirect_to payment_path(booking.flight_id)
+      end
     end
 
-    it "should redirect user with invalid booking parameters" do
-      sign_in(@bookings.second.user)
-      VALID_BOOKING_DETAILS[:passengers_attributes] <<
-        {
-          name: nil,
-          email: Faker::Internet.email
-        }
-      put :update, id: @bookings.second, booking: VALID_BOOKING_DETAILS
-      expect(response).to redirect_to(edit_booking_path)
+    context "when the user enters invalid update details" do
+      before do
+        VALID_BOOKING_DETAILS[:passengers_attributes] <<
+          {
+            name: nil,
+            email: Faker::Internet.email
+          }
+      end
+
+      it "redirects back to the booking edit page" do
+        is_expected.to redirect_to edit_booking_path
+      end
     end
   end
 
   describe "GET #search_result" do
-    it "should redirect user to the booking show page" do
-      sign_in(@bookings.second.user)
-      get :search_result, booking_ref_code: @bookings.second.booking_ref_code
-      expect(response).to redirect_to(booking_path(@bookings.second.id))
+    let(:booking) { create(:booking, :registered_user_booking) }
+    before { sign_in(booking.user) }
+
+    context "when the booking record is found" do
+      subject { get :search_result, booking_ref_code: booking.booking_ref_code }
+
+      it "redirects to the booking show page" do
+        is_expected.to redirect_to booking_path(booking)
+      end
     end
 
-    it "should redirect back to the booking search page" do
-      sign_in(@bookings.first.user)
-      get :search_result, booking_ref_code: 123_456_789
-      expect(response).to redirect_to(search_booking_path)
+    context "when the booking record record is not found" do
+      subject { get :search_result, booking_ref_code: 123_456_789 }
+
+      it "redirects back to the booking search page" do
+        is_expected.to redirect_to search_booking_path
+      end
     end
   end
 
   describe "DELETE #destroy" do
-    it "should redirect anonymous user to login page" do
-      delete :destroy, id: @bookings.first.id
-      expect(response).to redirect_to(new_user_session_path)
+    let(:booking) { create(:booking, :registered_user_booking) }
+    subject(:delete_booking_action) { delete :destroy, id: booking.id }
+
+    context "when a registered user deletes a booking record" do
+      before { sign_in(booking.user) }
+
+      it "redirects back to all bookings page" do
+        is_expected.to redirect_to bookings_path
+      end
+
+      it "reduces the booking count by 1" do
+        expect { delete_booking_action }.to change { Booking.count }.by(-1)
+      end
+
+      it "returns a falsy value when checked in the database" do
+        delete :destroy, id: booking.id
+        expect(Booking.exists?(booking.id)).to be_falsy
+      end
     end
 
-    it "should delete the booking with the supplied ID" do
-      sign_in(@bookings.first.user)
-      delete :destroy, id: @bookings.first.id
-      expect(Booking.exists?(@bookings.first)).to be_falsy
-    end
-
-    it "should reduce the bookings count by 1" do
-      sign_in(@bookings.second.user)
-      expect { delete :destroy, id: @bookings.second.id }.
-        to change(Booking, :count).by(-1)
-    end
-
-    it "should redirect the user to bookings page" do
-      sign_in(@bookings.third.user)
-      delete :destroy, id: @bookings.third.id
-      expect(response).to redirect_to(bookings_path)
+    context "when an anonymous user attempts to deletes a booking record" do
+      it "redirects user to login page" do
+        is_expected.to redirect_to new_user_session_path
+      end
     end
   end
 end
